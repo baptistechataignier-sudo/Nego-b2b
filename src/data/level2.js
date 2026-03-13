@@ -1,0 +1,557 @@
+export const LEVEL2 = {
+  id: 2,
+  title: 'Commercial Confirmé',
+  subtitle: 'Défense des marges, multi-interlocuteurs & appels d\'offres',
+  color: 'blue',
+  icon: '⭐',
+  xpReward: 200,
+  unlockCondition: 'Terminez le Niveau 1 — Commercial Junior',
+  modules: [
+    // ── MODULE 1 — DÉFENSE DES MARGES ────────────────────────────────────────
+    {
+      id: 'l2-m1',
+      title: 'Défense des Marges',
+      icon: '💰',
+      xpReward: 200,
+      lessons: [
+        {
+          id: 'l2-m1-l1',
+          title: 'Justifier le Prix sans se Justifier',
+          icon: '🎯',
+          xpReward: 35,
+          theory: {
+            title: 'La valeur se démontre, elle ne s\'excuse pas',
+            content: [
+              {
+                heading: 'Le piège de la justification défensive',
+                body: "Dès que vous vous mettez à « expliquer » votre prix, vous signalez que vous le trouvez vous-même élevé. L'acheteur le ressent immédiatement. La posture correcte est l'assurance tranquille : votre prix est ce qu'il est parce que la valeur est là.\n\nDifférence clé :\n• Défensif : « Notre prix est élevé parce qu'on a des coûts de R&D importants… »\n• Assuré : « À ce niveau de prix, voici précisément ce que vous obtenez. »",
+                example: "L'acheteur : « C'est vraiment cher. »\nRéponse défensive (à éviter) : « Oui mais vous savez, on a des charges, et la qualité… »\nRéponse assurée : « Absolument. Et voici pourquoi nos clients renouvellent à 94% leur contrat : [bénéfice 1], [bénéfice 2], [bénéfice 3]. »",
+              },
+              {
+                heading: 'Ancrer le prix dans la valeur, pas dans les coûts',
+                body: "Ne défendez jamais votre prix par vos coûts de production ou vos marges internes — l'acheteur s'en fiche et vous le met en position de force. Ancrez toujours le prix dans la valeur créée pour le client.\n\nFormule : Prix = Problème résolu × Impact business / Risque éliminé\n\nSi l'acheteur n'est pas convaincu par ce calcul, c'est que vous n'avez pas suffisamment qualifié l'enjeu — revenez aux questions SPIN.",
+                example: "« Notre solution à 45 000 € permet à vos 30 commerciaux d'économiser 2h/semaine. Sur un an, c'est 3 000h récupérées — soit 75 000 € de productivité au coût horaire chargé de 25 €. Le ROI est à 67%. »",
+              },
+              {
+                heading: 'La technique du silence stratégique post-prix',
+                body: "Après avoir annoncé votre prix en le liant à la valeur, faites une pause. Complète. Ne meublez pas. Cette pause tranquille — non pas gênée — signale votre confiance. C'est l'acheteur qui doit réagir en premier.\n\nSi vous êtes le premier à parler après votre prix, vous signalez que vous cherchez son approbation. Attendez sa réaction, quelle qu'elle soit.",
+                example: "Script complet :\n« Sur la base des enjeux que vous m'avez décrits — qualité audio déficiente, 2 clients perdus ce trimestre, 30 réunions/semaine affectées — notre solution règle l'ensemble du problème pour 45 000 €. » [silence]\nL'acheteur : « Hmm… » → vous attendez encore.\nL'acheteur : « C'est beaucoup. » → maintenant vous répondez.",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-1',
+              type: 'qcm',
+              question: "L'acheteur dit : « 42 000 €, c'est vraiment au-dessus de notre budget habituel. » Quelle réponse reflète la meilleure posture ?",
+              options: [
+                "« Je comprends. On peut peut-être revoir le périmètre pour descendre à 38 000 €. »",
+                "« Notre R&D et notre service client justifient ce tarif, je vous assure. »",
+                "« Effectivement, c'est un investissement significatif. Ce qui m'intéresse, c'est que vous en retiriez le maximum. Parlons de ce que ça représente concrètement pour vos résultats. »",
+                "« C'est notre tarif standard sur cette gamme. »",
+              ],
+              correct: 2,
+              explanation: "La réponse C valide la perception de l'acheteur sans défendre, puis redirige vers la valeur et les résultats. Elle n'est ni défensive (B), ni capitularde (A), ni froide (D).",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-2',
+              type: 'dialogue',
+              situation: "Vous venez d'annoncer votre offre à 67 000 €. L'acheteur marque un silence de 8 secondes, puis dit : « Hum… »",
+              yourRole: 'Commercial Confirmé',
+              buyerRole: 'Responsable Achats',
+              question: "Que faites-vous immédiatement après ce « Hum… » ?",
+              options: [
+                "Vous précisez : « Ce prix inclut la garantie 2 ans et le support. » ✗ (vous meublez le silence)",
+                "Vous dites : « On peut regarder des options moins complètes si besoin. » ✗ (concession gratuite)",
+                "Vous attendez en silence qu'il continue. ✓",
+                "Vous demandez : « Qu'est-ce qui vous retient ? » ✗ (trop tôt, rompez le silence à son avantage)",
+              ],
+              correct: 2,
+              explanation: "Le « Hum » n'est pas une objection — c'est une réflexion. La bonne réponse est le silence. En attendant, vous forcez l'acheteur à formuler concrètement sa résistance, ce qui vous donne une information réelle à traiter.",
+              xp: 15,
+            },
+            {
+              id: 'ex-l2-3',
+              type: 'vrai_faux',
+              question: "Pour défendre votre prix, il est efficace d'expliquer vos coûts de production à l'acheteur pour qu'il comprenne pourquoi votre prix est justifié.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX. Vos coûts n'intéressent pas l'acheteur — il cherche à résoudre son problème, pas à financer votre entreprise. Défendre le prix par les coûts vous place en position défensive et suggère que vous cherchez à être « raisonnablement » payé plutôt que justement valorisé. Défendez toujours par la valeur créée.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-4',
+              type: 'reorder',
+              question: "Remettez dans l'ordre la séquence optimale pour présenter et défendre un prix :",
+              items: [
+                "Annoncer le prix avec assurance, sans apologétique",
+                "Faire une pause complète après l'annonce",
+                "Rappeler les enjeux business qualifiés en amont",
+                "Lier le prix au ROI et aux résultats attendus",
+                "Attendre la réaction de l'acheteur avant de reprendre",
+              ],
+              correct: [2, 3, 0, 1, 4],
+              explanation: "Ordre : Enjeux (C) → ROI (D) → Prix (A) → Silence (B) → Écoute (E). Le prix annoncé après la valeur est toujours perçu comme plus acceptable. Le silence qui suit teste la confiance de l'acheteur dans son objection.",
+              xp: 20,
+            },
+          ],
+        },
+        {
+          id: 'l2-m1-l2',
+          title: 'La Technique du « Si… Alors »',
+          icon: '🔗',
+          xpReward: 35,
+          theory: {
+            title: 'Toute concession appelle une contrepartie',
+            content: [
+              {
+                heading: 'Le principe fondamental',
+                body: "En négociation professionnelle, aucune concession n'est gratuite. Chaque remise, chaque geste commercial, chaque effort de délai doit être lié à une contrepartie de valeur équivalente ou supérieure. La technique « Si… Alors » structure cet échange.\n\nFormule : « Si vous [contrepartie], alors je peux [concession]. »\n\nCette formulation est cruciale : vous mettez la contrepartie en premier (la condition), puis la concession. Pas l'inverse.",
+                example: "À ne pas dire : « Je vous fais 8% de remise si vous signez avant vendredi. »\n(Vous donnez d'abord la concession — l'acheteur sait ce qu'il obtient et négocie la deadline.)\n\nÀ dire : « Si vous pouvez vous engager avant vendredi, alors je peux regarder les conditions. »\n(L'acheteur s'engage d'abord, puis vous concédez.)",
+              },
+              {
+                heading: 'Les contreparties à votre disposition',
+                body: "• Volume/Quantité : engagement sur une quantité plus élevée\n• Durée : contrat pluriannuel plutôt qu'annuel\n• Périmètre : réduction du scope pour justifier un prix plus bas\n• Paiement : paiement comptant ou anticipé contre remise\n• Délai : signature immédiate contre conditions spéciales\n• Référence : accord pour être cité comme référence client\n• Pilote/POC : lancement d'un pilote payant contre conditions préférentielles sur le déploiement",
+                example: "Exemples concrets :\n« Si vous passez de 50 à 100 licences, alors je peux appliquer le palier tarifaire supérieur (-12%). »\n« Si vous payez à 30 jours au lieu de 60, alors on peut absorber les frais de livraison. »\n« Si vous acceptez d'être une référence client sur notre site, alors je peux inclure la formation avancée. »",
+              },
+              {
+                heading: 'Graduer les concessions — ne jamais donner sa meilleure offre d\'emblée',
+                body: "Règle d'or : votre première concession doit être inférieure à la suivante. Un commercial qui donne 8% d'entrée suggère qu'il peut aller à 15%. Gradez : 3% → 2% → 1% → stop.\n\nL'acheteur qui voit les concessions se réduire comprend intuitivement qu'il approche d'un plancher réel. Les concessions décroissantes sont plus crédibles que les concessions égales.",
+                example: "Séquence optimale :\nDemande : -15%\nVotre 1ère contre-proposition : « -3% si engagement 2 ans. »\nAprès refus : « Je peux aller à -5% avec un paiement à 30 jours et 2 ans. »\nAprès refus : « Ma meilleure offre : -6% avec ces deux conditions. Je ne peux pas aller plus loin. »\n(Les écarts se réduisent : 3% → 5% → 6% → stop.)",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-5',
+              type: 'qcm',
+              question: "L'acheteur demande -10% de remise. Laquelle de ces formulations applique correctement la technique Si-Alors ?",
+              options: [
+                "« Je vous fais -7% si vous signez ce mois-ci. »",
+                "« Si vous pouvez vous engager sur 2 ans et doubler les volumes, alors je peux travailler sur une remise de 7%. »",
+                "« -10%, c'est difficile, mais -7% c'est faisable. »",
+                "« Je dois en parler avec mon directeur commercial. »",
+              ],
+              correct: 1,
+              explanation: "La réponse B est la seule qui : 1) met la contrepartie en premier (Si vous...), 2) demande deux contreparties (2 ans + volume), 3) reste vague sur la concession exacte (« travailler sur »). La réponse A donne la concession en premier et la condition est faible (signature ce mois).",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-6',
+              type: 'qcm',
+              question: "Vous avez fait 3 concessions de -5%, -4%, -3%. L'acheteur insiste pour encore -3%. Quelle est la bonne réaction ?",
+              options: [
+                "Accorder les -3% pour finir la négociation",
+                "Faire -1.5% comme compromis",
+                "Tenir ferme : « J'ai fait trois efforts successifs. Ma position est à 12% de remise totale, c'est ma limite. »",
+                "Proposer une concession non-financière (formation, support) à la place",
+              ],
+              correct: 2,
+              explanation: "Les concessions décroissantes (5-4-3%) signalent à l'acheteur que vous approchez de votre plancher. Continuer à céder invalide ce signal. Tenir ferme ici est la bonne posture — vous pouvez offrir une contrepartie non-financière (D) si vous voulez débloquer, mais pas une nouvelle remise.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-7',
+              type: 'dialogue',
+              situation: "L'acheteur dit : « Votre concurrent propose le même prix mais avec 6 mois de support inclus. Pouvez-vous matcher ? »",
+              yourRole: 'Commercial',
+              buyerRole: 'DSI',
+              question: "Comment utilisez-vous le Si-Alors dans cette situation ?",
+              options: [
+                "« D'accord, j'inclus 6 mois de support. » ✗ (concession gratuite)",
+                "« Notre support est différent de celui de nos concurrents. » ✗ (esquive)",
+                "« Si vous pouvez m'engager formellement sur cette commande aujourd'hui, alors j'inclus 3 mois de support premium — ce qui est plus qualitatif que les 6 mois standard de notre concurrent. » ✓",
+                "« Je vais vérifier avec mon directeur ce qu'on peut faire. » ✗ (perd le momentum)",
+              ],
+              correct: 2,
+              explanation: "La réponse C applique Si-Alors, crée une urgence (aujourd'hui), et repositionne la qualité plutôt que la quantité (3 mois premium vs 6 mois standard). Vous n'égalez pas l'offre adverse — vous la dépassez qualitativement en échange d'un engagement.",
+              xp: 15,
+            },
+            {
+              id: 'ex-l2-8',
+              type: 'vrai_faux',
+              question: "Donner votre meilleure offre dès le départ est une stratégie efficace car elle montre votre sincérité à l'acheteur et accélère la décision.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX. Donner votre meilleure offre d'emblée vous prive de toute marge de manœuvre, signale que vous étiez prêt à concéder dès le départ (ce qui remet en question l'honnêteté de votre prix initial), et prive l'acheteur du sentiment d'avoir « gagné » quelque chose. Gardez toujours de la marge pour graduer vos concessions.",
+              xp: 10,
+            },
+          ],
+        },
+      ],
+    },
+
+    // ── MODULE 2 — MULTI-INTERLOCUTEURS ──────────────────────────────────────
+    {
+      id: 'l2-m2',
+      title: 'Négociation Multi-Interlocuteurs',
+      icon: '👥',
+      xpReward: 200,
+      lessons: [
+        {
+          id: 'l2-m2-l1',
+          title: 'Cartographie Décisionnelle',
+          icon: '🗺️',
+          xpReward: 35,
+          theory: {
+            title: 'Connaître tous les acteurs avant d\'entrer dans l\'arène',
+            content: [
+              {
+                heading: 'Les 4 rôles décisionnels',
+                body: "Dans toute vente B2B complexe, 4 rôles clés influencent la décision :\n\n• DécIdeur (D) : signe le bon de commande ou valide le budget. Souvent DG, CFO, DGA. Focalisé sur le ROI et le risque.\n• Acheteur (A) : négocie les conditions commerciales. Focalisé sur le prix, les délais, les SLA.\n• Utilisateur final (U) : utilise la solution au quotidien. Focalisé sur la facilité d'usage, l'adoption.\n• Prescripteur (P) : influence la décision sans avoir le pouvoir de signer. DSI, consultant, expert métier.",
+                example: "Exemple sur un projet de visioconférence :\n• DécIdeur = DG ou DAF (budget 80 K€+)\n• Acheteur = Responsable Achats (conditions commerciales)\n• Utilisateur = équipes commerciales terrain (adoption, facilité)\n• Prescripteur = DSI (spécifications techniques, intégration SI)",
+              },
+              {
+                heading: 'Identifier qui joue quel rôle — les questions à poser',
+                body: "Ne supposez jamais les rôles — qualifiez-les :\n« Qui d'autre sera impliqué dans la décision finale ? »\n« Quel est le processus de validation interne ? »\n« Y a-t-il une direction technique ou un DSI qui devra valider les aspects techniques ? »\n« La décision finale, elle revient à qui ? »\n\nCes questions vous permettent de cartographier l'organigramme décisionnel et d'adapter votre stratégie.",
+                example: "Erreur classique : vous passez 3 semaines à convaincre l'acheteur, puis il vous dit « je dois présenter ça à mon DG qui n'était pas au courant ». Le DG pose des questions basiques, l'acheteur ne sait pas y répondre, et l'affaire est perdue ou retardée de 2 mois.",
+              },
+              {
+                heading: 'Stratégie multi-interlocuteurs — adresser chaque enjeu',
+                body: "Chaque rôle a ses propres KPIs et ses peurs :\n\n• DécIdeur : « Mon budget est-il bien investi ? Quel est le ROI ? Quel risque si ça échoue ? »\n• Acheteur : « Est-ce que j'obtiens les meilleures conditions du marché ? »\n• Utilisateur : « Est-ce que ça va compliquer ma vie ou la simplifier ? »\n• Prescripteur : « Est-ce que c'est techniquement solide et compatible avec l'existant ? »\n\nVotre message doit être différencié selon l'interlocuteur — pas un discours générique.",
+                example: "Pour le même projet de visioconférence :\nAu DG : « ROI en 14 mois, 80h récupérées par semaine sur vos équipes. »\nÀ l'Acheteur : « Meilleur tarif via notre accord-cadre, livraison en 3 semaines, SLA garanti. »\nAux utilisateurs : « Interface identique à Zoom, zéro formation nécessaire. »\nAu DSI : « Certifié Microsoft Teams et Webex, API ouverte, déploiement en 2 jours. »",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-9',
+              type: 'qcm',
+              question: "Un Responsable IT vous dit : « C'est moi qui décide de l'achat des équipements. » Quelle est votre réaction ?",
+              options: [
+                "Vous le croyez et concentrez tous vos efforts sur lui",
+                "Vous questionnez poliment pour cartographier : « Parfait. Y a-t-il une validation budgétaire DG ou DAF au-delà d'un certain montant ? »",
+                "Vous demandez directement à voir son DG",
+                "Vous vérifiez sur LinkedIn qui est réellement décideur",
+              ],
+              correct: 1,
+              explanation: "La réponse B est la bonne — elle valide son rôle sans le remettre en cause, et qualifie discrètement les seuils de délégation. Un Responsable IT « décideur » l'est souvent sur de petits montants mais pas sur des projets stratégiques. Il faut le vérifier sans l'humilier.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-10',
+              type: 'reorder',
+              question: "Remettez dans l'ordre la bonne séquence de travail sur un compte multi-interlocuteurs :",
+              items: [
+                "Adapter votre message aux enjeux de chaque rôle",
+                "Identifier et cartographier tous les rôles décisionnels",
+                "Identifier le sponsor interne (allié) qui facilite votre accès",
+                "Préparer votre proposition en répondant aux préoccupations de chaque rôle",
+                "Qualifier le processus de décision et les étapes de validation",
+              ],
+              correct: [1, 4, 2, 0, 3],
+              explanation: "Ordre : Cartographier (B) → Qualifier le processus (E) → Identifier un allié interne (C) → Adapter le message (A) → Préparer la proposition multi-rôles (D). Ne jamais préparer votre proposition avant d'avoir fini la cartographie.",
+              xp: 20,
+            },
+            {
+              id: 'ex-l2-11',
+              type: 'vrai_faux',
+              question: "Le Prescripteur (ex : DSI) n'étant pas décideur, il est secondaire dans votre stratégie et peut être traité après la signature.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX. Le Prescripteur peut bloquer une décision du Décideur en soulevant des objections techniques ou de conformité que le Décideur ne peut pas ignorer. Un DSI qui émet une réserve sur la sécurité d'une solution peut faire capoter une signature déjà « dans la poche ». Adressez le Prescripteur en parallèle du Décideur.",
+              xp: 10,
+            },
+          ],
+        },
+        {
+          id: 'l2-m2-l2',
+          title: 'Gérer les Tensions entre Interlocuteurs',
+          icon: '⚡',
+          xpReward: 35,
+          theory: {
+            title: 'Naviguer entre des objectifs contradictoires',
+            content: [
+              {
+                heading: 'Les conflits d\'objectifs internes — une réalité à exploiter',
+                body: "Dans la plupart des entreprises, les acheteurs et les utilisateurs finaux ont des objectifs contradictoires. L'acheteur cherche le prix le plus bas ; l'utilisateur cherche la meilleure solution. Cette tension est votre alliée : si vous pouvez accéder à l'utilisateur final et créer une préférence forte, l'acheteur se retrouve sous pression interne.\n\nStratégie : construire une coalition d'internes favorables à votre solution avant que l'acheteur ne prenne la main.",
+                example: "Cas réel : DSI enthousiaste pour votre solution de cybersécurité (intégration parfaite), acheteur qui veut le concurrent -15% moins cher. Si le DSI porte le projet en interne, l'acheteur doit soit aller contre son DSI, soit trouver un terrain d'entente. Vous avez créé un levier sans rien négocier.",
+              },
+              {
+                heading: 'La réunion avec des interlocuteurs aux intérêts opposés',
+                body: "Quand DG et acheteur sont dans la même pièce, la réunion est politiquement chargée. Le DG ne veut pas sembler dépenser trop ; l'acheteur ne veut pas sembler laxiste. Vous êtes pris entre deux feux.\n\nTactique : adresser alternativement les deux niveaux dans votre discours. Commencez par les enjeux stratégiques (DG), puis les conditions pratiques (acheteur).\n\n« Pour vous, [DG], la question est [ROI/impact business]. Pour vous, [acheteur], voici les conditions opérationnelles. »",
+                example: "Ce qu'il ne faut JAMAIS faire : ignorer un des deux interlocuteurs. Parler uniquement au DG frustre l'acheteur qui peut se sentir court-circuité et bloquer le projet en interne. Parler uniquement à l'acheteur signale que vous n'avez pas accès au décideur réel.",
+              },
+              {
+                heading: 'Trouver et activer votre sponsor interne',
+                body: "Dans tout compte, il existe une personne qui a intérêt à votre succès — parce que votre solution règle SON problème, booste SA performance ou réduit SON risque. C'est votre sponsor. Cultivez-le en priorité.\n\nLe sponsor interne :\n• Facilite votre accès aux autres décideurs\n• Porte votre message en interne quand vous n'êtes pas là\n• Vous prévient des obstacles et des changements de situation\n• Vous aide à cadrer la proposition selon les priorités internes",
+                example: "Comment activer votre sponsor :\n« Est-ce que vous seriez à l'aise pour présenter cette solution à votre DG si je prépare avec vous les éléments de réponse aux questions qu'il pourrait avoir ? » — Vous co-construisez, il devient avocat de votre cause.",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-12',
+              type: 'dialogue',
+              situation: "En réunion avec le DG et l'acheteur. Le DG : « Très bien, ça m'intéresse. » L'acheteur : « On a d'autres offres à étudier. » Ambiance tendue.",
+              yourRole: 'Commercial Confirmé',
+              buyerRole: 'DG + Acheteur',
+              question: "Comment gérez-vous cette situation délicate ?",
+              options: [
+                "Vous ignorez l'acheteur et parlez directement au DG. ✗",
+                "Vous dites : « Je comprends. Monsieur le DG, sur le fond stratégique, êtes-vous aligné sur l'approche ? Ensuite, [acheteur], on peut travailler les conditions ensemble — vous aurez tous les éléments pour une comparaison solide. » ✓",
+                "Vous proposez immédiatement une remise pour contenter l'acheteur. ✗",
+                "Vous demandez un report de réunion pour laisser l'acheteur étudier les offres. ✗",
+              ],
+              correct: 1,
+              explanation: "La réponse B est magistrale : elle valide l'intérêt du DG (ce qui met une pression positive sur l'acheteur), respecte le processus de l'acheteur sans concéder, et crée un momentum vers la prochaine étape. Vous n'ignorez personne et vous ne cédez pas.",
+              xp: 15,
+            },
+            {
+              id: 'ex-l2-13',
+              type: 'qcm',
+              question: "Votre sponsor interne (un Chef de Projet enthousiasmé) vous dit : « Le problème c'est que les achats ont mis une procédure de mise en concurrence. » Quelle est votre meilleure réaction ?",
+              options: [
+                "Accepter la mise en concurrence et préparer un dossier d'appel d'offres standard",
+                "Demander à votre sponsor d'aller parler directement à son DG pour contourner les achats",
+                "Travailler avec votre sponsor pour qu'il exprime formellement en interne ses exigences fonctionnelles — les rédigeant de façon à avantager votre solution technique",
+                "Proposer une remise spéciale pour rendre la mise en concurrence inutile",
+              ],
+              correct: 2,
+              explanation: "La réponse C est la stratégie intelligente. En aidant votre sponsor à formaliser des exigences qui correspondent précisément à vos points forts (sans être discriminatoires), vous influencez le cahier des charges sans contourner les règles. C'est une pratique courante et éthique en vente complexe.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-14',
+              type: 'vrai_faux',
+              question: "Dans une vente multi-interlocuteurs, il est stratégiquement judicieux d'aller voir le décideur final directement, en bypassant l'acheteur qui ralentit le projet.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX (dans la plupart des cas). Court-circuiter l'acheteur crée une hostilité durable qui peut saboter le projet même après la signature — l'acheteur peut compliquer l'implémentation, retarder les paiements, ou bloquer les renouvellements. Mieux vaut aligner l'acheteur ou trouver un chemin qui respecte les deux. Exception : si l'acheteur est clairement un bloqueur sans légitimité, avec l'accord de votre sponsor.",
+              xp: 10,
+            },
+          ],
+        },
+      ],
+    },
+
+    // ── MODULE 3 — CYCLES DE VENTE LONGS ─────────────────────────────────────
+    {
+      id: 'l2-m3',
+      title: 'Cycles de Vente Longs',
+      icon: '📅',
+      xpReward: 200,
+      lessons: [
+        {
+          id: 'l2-m3-l1',
+          title: 'Relances sans Paraître Insistant',
+          icon: '📬',
+          xpReward: 35,
+          theory: {
+            title: 'Rester présent sans être pesant',
+            content: [
+              {
+                heading: 'Le dilemme de la relance',
+                body: "Trop relancer = insistant, désespéré, perd en crédibilité.\nPas assez relancer = oublié, concurrence qui avance, momentum perdu.\n\nLa solution : chaque relance doit apporter de la valeur à l'interlocuteur — pas seulement demander « où en êtes-vous ? ».\n\nRègle d'or : vous n'avez le droit de relancer que si vous apportez quelque chose de nouveau.",
+                example: "Mauvaise relance : « Bonjour, je voulais juste savoir si vous aviez avancé sur notre proposition ? »\n→ Vous demandez quelque chose sans rien apporter.\n\nBonne relance : « J'ai vu que votre secteur vient de publier son baromètre annuel — la problématique de qualité audio en open space que vous m'aviez citée ressort comme #2 des irritants. Je vous transmets l'étude. Avez-vous eu l'occasion de partager notre proposition avec votre DSI ? »\n→ Vous apportez de la valeur ET vous posez votre question.",
+              },
+              {
+                heading: 'Les 5 prétextes à valeur ajoutée',
+                body: "1. Actualité du secteur : étude, rapport, article pertinent pour leur problématique\n2. Référence client : « Un client similaire vient de déployer notre solution, je pense que leur retour vous intéresserait. »\n3. Nouveau contenu : webinar, guide, cas d'usage\n4. Évolution produit : nouvelle fonctionnalité qui répond précisément à leur besoin exprimé\n5. Offre limitée : promotion, disponibilité produit, date limite significative",
+                example: "Calendrier de relances sur un cycle de 3 mois :\nJ+7 : Compte-rendu de réunion + récapitulatif des enjeux identifiés\nJ+14 : Article/étude pertinent + question sur l'avancement interne\nJ+30 : Référence client du même secteur\nJ+45 : Nouvelle fonctionnalité ou mise à jour produit\nJ+60 : Invitation à un webinar ou démo avancée\nJ+75 : Relance directe avec date limite (offre promotionnelle ou fin de disponibilité)",
+              },
+              {
+                heading: 'Qualifier l\'état réel — est-ce chaud ou mort ?',
+                body: "Sur un cycle long, il faut régulièrement vérifier si le projet est encore vivant. La question directe (mais bienveillante) : « Je veux être honnête avec vous — est-ce que ce projet est toujours une priorité pour vous cette année ? »\n\nSi la réponse est floue ou hésitante, le projet est probablement en veille. Mieux vaut le savoir pour ne pas y consacrer de ressources et le requalifier plus tard.",
+                example: "Si le prospect dit : « Oui mais on a d'autres priorités en ce moment. » → Proposez de faire un point dans 6 semaines avec une date précise dans l'agenda. Si il refuse de fixer une date, le projet est mort — passez à la suite et revenez dans 6 mois.",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-15',
+              type: 'qcm',
+              question: "Un prospect ne répond plus depuis 3 semaines après une proposition. Quelle est la meilleure relance ?",
+              options: [
+                "« Bonjour, je me permets de vous relancer concernant ma proposition du [date]. Avez-vous des questions ? »",
+                "« Suite à notre entretien, j'ai pensé à vous en lisant cette étude sur la productivité des équipes hybrides — la problématique que vous m'avez décrite ressort clairement. Je vous la transmets. De votre côté, où en êtes-vous dans votre réflexion ? »",
+                "« Je voulais m'assurer que vous avez bien reçu ma proposition. »",
+                "Envoyer la proposition à nouveau en pièce jointe avec un message court.",
+              ],
+              correct: 1,
+              explanation: "La réponse B est la seule qui apporte de la valeur avant de demander. Elle rappelle le contexte (étude + problème), montre que vous pensez à lui, et pose une question ouverte. Les autres demandent sans donner.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-16',
+              type: 'vrai_faux',
+              question: "Si un prospect ne répond pas à 2 relances successives, c'est une marque de désintérêt et il faut arrêter immédiatement pour ne pas être perçu comme trop insistant.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX. 2 relances sans réponse peuvent signifier beaucoup de choses : vacances, surcharge, réorganisation interne, projet en attente de budget. La bonne pratique est de faire une relance « de rupture » franche après 3-4 tentatives : « Je ne veux pas vous déranger si ce n'est plus le bon moment. Est-ce que je dois mettre ce projet en veille de mon côté ? » Cette question directe force une réponse et préserve la relation.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-17',
+              type: 'reorder',
+              question: "Ordonnez les types de relances du plus au moins adapté à J+7 après l'envoi d'une proposition :",
+              items: [
+                "Offre promotionnelle limitée dans le temps",
+                "Compte-rendu de réunion + récapitulatif des enjeux identifiés + question sur les prochaines étapes",
+                "« Avez-vous des questions sur ma proposition ? »",
+                "Invitation à un webinar sur leur problématique",
+              ],
+              correct: [1, 3, 2, 0],
+              explanation: "À J+7 : le compte-rendu (B) est prioritaire — il confirme votre compréhension et crée l'habitude d'échange. Ensuite le webinar (D) apporte de la valeur. La question simple (C) est neutre. L'offre promotionnelle (A) est prématurée à J+7 — gardez-la pour plus tard.",
+              xp: 15,
+            },
+          ],
+        },
+      ],
+    },
+
+    // ── MODULE 4 — APPELS D'OFFRES ────────────────────────────────────────────
+    {
+      id: 'l2-m4',
+      title: 'Appels d\'Offres & BPU/DQE',
+      icon: '📑',
+      xpReward: 200,
+      lessons: [
+        {
+          id: 'l2-m4-l1',
+          title: 'Lire et Positionner son Offre',
+          icon: '📖',
+          xpReward: 35,
+          theory: {
+            title: 'Gagner un appel d\'offres avant de le rédiger',
+            content: [
+              {
+                heading: 'Répondre ou ne pas répondre — la décision Go/No-Go',
+                body: "Répondre à un appel d'offres coûte du temps (2 à 15 jours selon la complexité) et de l'argent. Avant de vous lancer, évaluez :\n\n• Connaissez-vous le client ? Avez-vous une relation en amont ?\n• Avez-vous des chances réelles (pas juste pour faire le nombre) ?\n• L'offre est-elle dans votre cœur de cible ?\n• Les conditions (délais, prix, SLA) sont-elles compatibles avec votre offre ?\n\nRègle pro : si vous n'avez pas eu de contact avec le client avant l'appel d'offres, vos chances de gagner sont < 15%. Répondre sans relation préalable vous fait remplir le nombre de candidats pour satisfaire les obligations de mise en concurrence.",
+                example: "Signe que l'AO est « écrit pour quelqu'un d'autre » :\n• Les spécifications techniques collent parfaitement à un concurrent précis\n• La deadline de réponse est très courte (< 10 jours) — ne laisse pas le temps à des outsiders\n• La pondération des critères est inhabituelle (ex : technique à 80%, prix à 20%)\n→ Dans ces cas, contactez le référent marché pour clarifier et évaluer si ça vaut la peine.",
+              },
+              {
+                heading: 'Lire le cahier des charges — trouver les vrais enjeux',
+                body: "Un cahier des charges contient toujours :\n• Les spécifications explicites (ce qui est écrit)\n• Les critères de notation (pondération des axes)\n• Les enjeux implicites (ce que le client ne dit pas mais valorise)\n\nVotre travail : identifier les enjeux implicites. Ils transparaissent dans :\n• Les détails dans lesquels le client entre — ce qu'il détaille signifie ce qu'il valorise\n• Les critères qui ont un fort coefficient — ce qu'il pondère fortement est sa vraie priorité\n• Les « exigences must-have » vs « nice to have »",
+                example: "Un AO pour des solutions de visioconférence qui détaille sur 3 pages les exigences de sécurité réseau mais expédie en 2 lignes la qualité audio → Le vrai enjeu est la sécurité, pas la qualité. Mettez votre certifications de sécurité en avant et allouez-y plus d'espace dans votre réponse.",
+              },
+              {
+                heading: 'Positionner son offre — se différencier sans se disqualifier',
+                body: "Dans un appel d'offres, deux erreurs fatales :\n1. Répondre « au cahier des charges » point par point sans aucune valeur ajoutée — vous êtes un clone parmi d'autres.\n2. Proposer quelque chose de très différent du cahier des charges — vous vous disqualifiez.\n\nLa bonne stratégie : répondre à toutes les exigences du CDC, PUIS ajouter une valeur différenciante qui n'était pas demandée mais qui répond aux enjeux implicites identifiés.\n\n« Nous répondons à l'ensemble de vos exigences, et voici en plus ce qui nous différencie sur vos enjeux spécifiques de [sécurité/déploiement/support]. »",
+                example: "Structure d'une bonne réponse à AO :\n1. Résumé exécutif (2 pages max — pour le DG qui ne lit que ça)\n2. Compréhension du besoin (montrez que vous avez lu entre les lignes)\n3. Solution proposée (point par point + valeur ajoutée)\n4. Références clients pertinentes (même secteur, même taille, même enjeu)\n5. Proposition financière (BPU/DQE détaillé)\n6. Équipe projet et méthodologie de déploiement",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-18',
+              type: 'qcm',
+              question: "Vous recevez un AO pour 200 licences logicielles. Les critères de notation : Technique 40%, Prix 50%, Références 10%. Quelle est votre priorité de rédaction ?",
+              options: [
+                "La partie technique — c'est là que vous vous différenciez",
+                "Les références clients — rares dans votre portefeuille",
+                "La partie prix — pondérée à 50%, c'est là que se joue l'affaire",
+                "Le résumé exécutif pour faire bonne impression",
+              ],
+              correct: 2,
+              explanation: "Quand le prix représente 50% de la note, c'est lui qui détermine le classement final. Vous devez à la fois être compétitif en prix ET bien structurer votre BPU. Ne pas négliger la partie technique (40%), mais une faiblesse prix ne se compense pas par la technique dans cette pondération.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-19',
+              type: 'vrai_faux',
+              question: "Répondre à un maximum d'appels d'offres, même sans relation préalable avec le client, est une bonne stratégie pour développer son chiffre d'affaires.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX. Sans relation préalable, le taux de succès sur un AO est très faible (< 15%) et le coût de réponse est élevé. Une stratégie sélective (Go/No-Go rigoureux) et la construction de relations en amont sont bien plus rentables. Répondre à des AO « pour l'exercice » est une perte de ressources.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-20',
+              type: 'qcm',
+              question: "Qu'est-ce qu'un BPU (Bordereau de Prix Unitaires) dans le contexte d'un appel d'offres ?",
+              options: [
+                "Un document synthétique résumant votre offre globale",
+                "Un tableau détaillant le prix de chaque ligne de produit ou prestation unitaire, permettant à l'acheteur de construire différentes configurations",
+                "La grille de notation utilisée par l'acheteur pour comparer les offres",
+                "Le bon de commande formalisé après attribution du marché",
+              ],
+              correct: 1,
+              explanation: "Le BPU (ou DQE — Devis Quantitatif et Estimatif) est la brique financière de votre réponse à AO. Il détaille le prix unitaire de chaque item, ce qui permet à l'acheteur de comparer les offres de façon rigoureuse et de construire différents scénarios. Sa précision et sa clarté sont aussi importantes que son niveau de prix.",
+              xp: 10,
+            },
+          ],
+        },
+      ],
+    },
+
+    // ── MODULE 5 — CONCURRENCE ────────────────────────────────────────────────
+    {
+      id: 'l2-m5',
+      title: 'Gérer la Concurrence',
+      icon: '⚔️',
+      xpReward: 200,
+      lessons: [
+        {
+          id: 'l2-m5-l1',
+          title: '« Votre Concurrent est Moins Cher »',
+          icon: '🥊',
+          xpReward: 35,
+          theory: {
+            title: 'Déconstruire l\'objection prix concurrentielle',
+            content: [
+              {
+                heading: 'Les 3 types d\'objections concurrentielles',
+                body: "1. L'objection vraie : le concurrent a une offre réellement comparable moins chère. Rare.\n2. L'objection imparfaite : le concurrent est moins cher MAIS le périmètre est différent. Fréquent.\n3. L'objection tactique : l'acheteur utilise un concurrent comme levier de négociation même s'il préfère votre solution. Très fréquent.\n\nVotre première mission : identifier dans quelle catégorie vous êtes. La réponse n'est pas la même.",
+                example: "Signal d'une objection tactique :\n• L'acheteur cite un concurrent mais refuse de vous montrer l'offre\n• Il insiste sur « vous devez vous aligner » sans détailler les conditions\n• La différence de prix est ronde (« ils sont 20% moins chers ») — les offres réelles ont rarement des écarts aussi précis\n• Il continue de vous rencontrer alors qu'il dit être convaincu par le concurrent",
+              },
+              {
+                heading: 'La déconstruction en 4 étapes',
+                body: "Étape 1 — Valider sans paniquer :\n« C'est intéressant. Est-ce que vous avez leur offre formelle sous la main ? »\n\nÉtape 2 — Comparer les périmètres :\n« Pour comparer objectivement, est-ce que leur offre inclut [support, formation, garantie, SLA, intégration] ? »\n\nÉtape 3 — Quantifier les différences cachées :\n« Si on ajoute les éléments qui ne sont pas inclus dans leur offre, on arrive à quel total ? »\n\nÉtape 4 — Recentrer sur la valeur :\n« Au-delà du prix affiché, quelle est votre exposition au risque si le support n'est pas là quand vous en avez besoin ? »",
+                example: "Exemple chiffré :\nConcurrent : 40 000 € (sans support, sans formation, garantie 1 an)\nVotre offre : 49 000 € (support 24/7, formation incluse, garantie 3 ans)\nDifférence affichée : -18%\n\nSi vous ajoutez support (5 000 €/an × 2) + formation (2 500 €) + garantie étendue (3 000 €) :\nConcurrent réel = 55 500 €\nVotre offre = 49 000 €\nVous êtes moins cher de 12% en TCO (Total Cost of Ownership).",
+              },
+              {
+                heading: 'Quand l\'offre concurrente est réellement meilleure',
+                body: "Si après analyse, le concurrent est vraiment moins cher sur un périmètre équivalent, vous avez 3 options :\n\n1. Accepter la perte et passer à d'autres opportunités (si la marge ne permet pas de vous aligner)\n2. Jouer sur la relation et la confiance accumulée (« vous nous connaissez, vous savez ce que vous obtenez »)\n3. Innover sur l'offre : proposer quelque chose que le concurrent ne peut pas faire (périmètre étendu, service exclusif, financement)\n\nNe jamais mentir sur les capacités de votre concurrent — l'acheteur s'en rendra compte et vous perdrez toute crédibilité.",
+                example: "Réponse honnête quand vous êtes battu sur le prix : « Je comprends que leur prix soit attractif. Ce que je peux vous garantir, c'est que [point de différenciation réel]. Si ce point est critique pour vous, alors notre solution mérite réflexion. Si le prix seul est le critère, je respecte votre choix et j'espère avoir l'opportunité de travailler ensemble sur votre prochain projet. »",
+              },
+            ],
+          },
+          exercises: [
+            {
+              id: 'ex-l2-21',
+              type: 'dialogue',
+              situation: "L'acheteur : « Globtech nous propose la même solution à 35 000 € contre vos 44 000 €. »",
+              yourRole: 'Commercial Confirmé',
+              buyerRole: 'Responsable Achats',
+              question: "Quelle est votre première réaction ?",
+              options: [
+                "« Globtech est moins fiable sur le support. » ✗ (attaque directe, sans preuve)",
+                "« Je comprends. Est-ce que vous avez leur offre formelle ? Je voudrais comparer les périmètres point par point avec vous. » ✓",
+                "« Je peux m'approcher de leur prix si vous vous engagez maintenant. » ✗ (concession réflexe)",
+                "« 35 000 € pour cette solution, ça m'étonnerait — leur offre doit être différente. » ✗ (ton agressif)",
+              ],
+              correct: 1,
+              explanation: "Demander l'offre formelle est le premier geste — toujours. Cela : 1) teste la crédibilité de l'objection (offre réelle vs levier tactique), 2) vous donne l'information pour comparer les périmètres, 3) ne vous engage à rien. 80% des acheteurs n'ont pas l'offre formelle sous la main.",
+              xp: 15,
+            },
+            {
+              id: 'ex-l2-22',
+              type: 'qcm',
+              question: "Vous comparez les offres et découvrez que le concurrent à 35 000 € n'inclut pas le support (3 000 €/an) ni la formation (2 000 €). Sur 3 ans, quel est le TCO concurrent ?",
+              options: [
+                "35 000 €",
+                "37 000 €",
+                "46 000 € (35 000 + 9 000 support + 2 000 formation)",
+                "40 000 €",
+              ],
+              correct: 2,
+              explanation: "TCO = 35 000 € (licence) + 3 000 × 3 (support 3 ans) + 2 000 (formation) = 35 000 + 9 000 + 2 000 = 46 000 €. Face à votre offre complète à 44 000 €, vous êtes moins cher de 2 000 € en coût total sur 3 ans. C'est votre argument.",
+              xp: 10,
+            },
+            {
+              id: 'ex-l2-23',
+              type: 'vrai_faux',
+              question: "Pour contrer un concurrent moins cher, il est efficace de lister ses points faibles et de les présenter à l'acheteur de manière détaillée.",
+              options: ['Vrai', 'Faux'],
+              correct: 1,
+              explanation: "FAUX (en général). Dénigrer un concurrent est perçu négativement par la plupart des acheteurs — ça vous fait paraître paranoïaque ou malhonnête. La bonne approche : renforcer votre propre valeur et poser des questions qui font douter l'acheteur lui-même (« Qu'avez-vous validé sur leur support post-déploiement ? »). Laissez l'acheteur tirer ses propres conclusions.",
+              xp: 10,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}

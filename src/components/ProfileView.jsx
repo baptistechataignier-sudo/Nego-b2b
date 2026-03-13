@@ -1,15 +1,15 @@
 import React from 'react'
 import { BADGES } from '../data/badges.js'
 import { computeUserLevel } from '../hooks/useProgress.js'
-import { LEVEL1 } from '../data/level1.js'
+import { ALL_LEVELS, LEVEL_COLORS, getLevelProgress, getAllLessons } from '../data/levels.js'
 
 export default function ProfileView({ state, dispatch }) {
-  const { totalXP, streak, level, completedLessons, completedModules, completedSimulations, earnedBadges, bestSimScore, lessonScores } = state
+  const { totalXP, streak, completedLessons, completedSimulations, earnedBadges, lessonScores } = state
   const { userLevel, title, next } = computeUserLevel(totalXP)
   const xpProgress = next ? Math.round((totalXP / next) * 100) : 100
 
-  const allLessons = LEVEL1.modules.flatMap(m => m.lessons)
-  const doneLessons = completedLessons.filter(id => allLessons.some(l => l.id === id)).length
+  const allLessons = getAllLessons()
+  const doneLessons = completedLessons.length
 
   function resetProgress() {
     if (window.confirm('Effacer toute la progression ? Cette action est irréversible.')) {
@@ -66,22 +66,25 @@ export default function ProfileView({ state, dispatch }) {
         <div className="card">
           <h3 className="font-black text-gray-900 mb-3">📚 Parcours</h3>
           <div className="space-y-2">
-            {[
-              { label: 'Niveau 1 — Commercial Junior', icon: '🌱', done: doneLessons, total: allLessons.length, active: true },
-              { label: 'Niveau 2 — Commercial Confirmé', icon: '⭐', done: 0, total: '?', active: false },
-              { label: 'Niveau 3 — Key Account Manager', icon: '🏆', done: 0, total: '?', active: false },
-            ].map(({ label, icon, done, total, active }) => (
-              <div key={label} className={`flex items-center gap-3 p-3 rounded-xl ${active ? 'bg-brand-50' : 'bg-gray-100 opacity-50'}`}>
-                <span className="text-xl">{active ? icon : '🔒'}</span>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-700">{label}</p>
-                  {active && <p className="text-xs text-gray-400">{done}/{total} leçons</p>}
+            {ALL_LEVELS.map((lvl) => {
+              const colors = LEVEL_COLORS[lvl.id]
+              const { done, total, pct } = getLevelProgress(lvl, completedLessons)
+              return (
+                <div key={lvl.id} className={`flex items-center gap-3 p-3 rounded-xl ${colors.light}`}>
+                  <span className="text-xl">{lvl.icon}</span>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-gray-700">Niveau {lvl.id} — {lvl.title}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex-1 h-1.5 bg-white/60 rounded-full overflow-hidden">
+                        <div className={`h-full ${colors.fill} rounded-full`} style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-xs text-gray-400">{done}/{total}</span>
+                    </div>
+                  </div>
+                  {pct === 100 && <span className={`${colors.text} font-bold`}>✓</span>}
                 </div>
-                {active && done === total && typeof total === 'number' && (
-                  <span className="text-brand-500 font-bold">✓</span>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 
@@ -109,7 +112,7 @@ export default function ProfileView({ state, dispatch }) {
             <h3 className="font-black text-gray-900 mb-3">📊 Scores par leçon</h3>
             <div className="space-y-2">
               {Object.entries(lessonScores).map(([id, data]) => {
-                const lesson = LEVEL1.modules.flatMap(m => m.lessons).find(l => l.id === id)
+                const lesson = allLessons.find(l => l.id === id)
                 if (!lesson) return null
                 const pct = Math.round((data.score / data.maxScore) * 100)
                 return (

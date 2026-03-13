@@ -1,24 +1,18 @@
 import React from 'react'
-import { LEVEL1 } from '../data/level1.js'
+import { ALL_LEVELS, LEVEL_COLORS, getLevelProgress, getUnlockedCourseLevel } from '../data/levels.js'
 import { SIMULATION_IT_RENOUVELLEMENT } from '../data/simulation.js'
 import { BADGES } from '../data/badges.js'
 import { computeUserLevel } from '../hooks/useProgress.js'
 
-const LEVEL_META = {
-  1: { label: 'Commercial Junior', color: 'brand', icon: '🌱', locked: false },
-  2: { label: 'Commercial Confirmé', color: 'blue', icon: '⭐', locked: true },
-  3: { label: 'Key Account Manager', color: 'purple', icon: '🏆', locked: true },
-}
-
 export default function Dashboard({ state, dispatch }) {
-  const { totalXP, streak, level, completedLessons, completedModules, completedSimulations, earnedBadges } = state
+  const { totalXP, streak, completedLessons, completedModules, completedSimulations, earnedBadges } = state
   const { userLevel, title, next } = computeUserLevel(totalXP)
   const xpProgress = next ? Math.round((totalXP / next) * 100) : 100
 
-  const allModules = LEVEL1.modules
-  const totalLessons = allModules.flatMap(m => m.lessons).length
-  const doneLessons = completedLessons.filter(id => allModules.flatMap(m => m.lessons).some(l => l.id === id)).length
-  const level1Progress = Math.round((doneLessons / totalLessons) * 100)
+  const unlockedCourseLevel = Math.max(
+    state.placementLevel || 1,
+    getUnlockedCourseLevel(completedLessons)
+  )
 
   function startLesson(moduleId, lessonId) {
     dispatch({ type: 'START_LESSON', lesson: { moduleId, lessonId } })
@@ -79,97 +73,28 @@ export default function Dashboard({ state, dispatch }) {
         {/* PARCOURS */}
         <section>
           <h2 className="text-lg font-black text-gray-900 mb-3">📚 Votre Parcours</h2>
+          {ALL_LEVELS.map((lvl, lvlIdx) => {
+            const colors = LEVEL_COLORS[lvl.id]
+            const { done, total, pct } = getLevelProgress(lvl, completedLessons)
+            const isUnlocked = lvl.id <= unlockedCourseLevel
+            const prevLvl = ALL_LEVELS[lvlIdx - 1]
+            const prevDone = prevLvl ? getLevelProgress(prevLvl, completedLessons).pct === 100 : true
 
-          {/* Level 1 */}
-          <div className="card mb-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center text-2xl">🌱</div>
-              <div className="flex-1">
-                <h3 className="font-black text-gray-900">Niveau 1 — Commercial Junior</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex-1 progress-bar">
-                    <div className="progress-fill" style={{ width: `${level1Progress}%` }} />
-                  </div>
-                  <span className="text-xs text-gray-400 font-semibold">{doneLessons}/{totalLessons}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {allModules.map((mod, mIdx) => {
-                const modLessons = mod.lessons
-                const modDone = modLessons.every(l => completedLessons.includes(l.id))
-                const modStarted = modLessons.some(l => completedLessons.includes(l.id))
-                const prevModDone = mIdx === 0 || completedModules.includes(allModules[mIdx - 1].id) ||
-                  allModules[mIdx - 1].lessons.every(l => completedLessons.includes(l.id))
-                const isLocked = !prevModDone && mIdx > 0
-
-                return (
-                  <div key={mod.id} className={`rounded-xl border-2 overflow-hidden ${
-                    isLocked ? 'border-gray-100 bg-gray-50 opacity-60' :
-                    modDone ? 'border-brand-200 bg-brand-50' :
-                    'border-gray-200 bg-white'
-                  }`}>
-                    <div className="px-4 py-3 flex items-center gap-3">
-                      <span className="text-xl">{isLocked ? '🔒' : mod.icon}</span>
-                      <div className="flex-1">
-                        <p className="font-bold text-gray-900 text-sm">{mod.title}</p>
-                        <p className="text-xs text-gray-400">{mod.lessons.length} leçon{mod.lessons.length > 1 ? 's' : ''}</p>
-                      </div>
-                      {modDone && <span className="text-brand-500 font-bold text-sm">✓</span>}
-                    </div>
-
-                    {!isLocked && (
-                      <div className="px-3 pb-3 space-y-2">
-                        {modLessons.map((lesson, lIdx) => {
-                          const prevDone = lIdx === 0 || completedLessons.includes(modLessons[lIdx - 1].id)
-                          const done = completedLessons.includes(lesson.id)
-                          const locked = !prevDone && lIdx > 0
-
-                          return (
-                            <button
-                              key={lesson.id}
-                              disabled={locked}
-                              onClick={() => !locked && startLesson(mod.id, lesson.id)}
-                              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 transition-all ${
-                                locked ? 'opacity-40 cursor-not-allowed bg-gray-100' :
-                                done ? 'bg-brand-100 hover:bg-brand-200 cursor-pointer' :
-                                'bg-white border border-gray-200 hover:border-brand-400 hover:bg-brand-50 cursor-pointer'
-                              }`}
-                            >
-                              <span className="text-lg">{locked ? '🔒' : done ? '✅' : lesson.icon}</span>
-                              <div className="flex-1">
-                                <p className={`text-sm font-semibold ${done ? 'text-brand-700' : 'text-gray-700'}`}>
-                                  {lesson.title}
-                                </p>
-                              </div>
-                              <span className="xp-badge">+{lesson.xpReward} XP</span>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Level 2 & 3 — Locked */}
-          {[
-            { level: 2, label: 'Commercial Confirmé', icon: '⭐', color: 'blue' },
-            { level: 3, label: 'Key Account Manager', icon: '🏆', color: 'purple' },
-          ].map(({ level: l, label, icon, color }) => (
-            <div key={l} className="card opacity-50 mb-3">
-              <div className="flex items-center gap-3">
-                <div className={`w-12 h-12 bg-${color}-100 rounded-xl flex items-center justify-center text-2xl`}>🔒</div>
-                <div>
-                  <h3 className="font-black text-gray-500">Niveau {l} — {label}</h3>
-                  <p className="text-xs text-gray-400">Débloqué après le Niveau {l - 1}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+            return (
+              <LevelCard
+                key={lvl.id}
+                lvl={lvl}
+                colors={colors}
+                isUnlocked={isUnlocked}
+                done={done}
+                total={total}
+                pct={pct}
+                completedLessons={completedLessons}
+                completedModules={completedModules}
+                onStartLesson={startLesson}
+              />
+            )
+          })}
         </section>
 
         {/* SIMULATIONS */}
@@ -205,6 +130,98 @@ export default function Dashboard({ state, dispatch }) {
             </div>
           </section>
         )}
+      </div>
+    </div>
+  )
+}
+
+function LevelCard({ lvl, colors, isUnlocked, done, total, pct, completedLessons, completedModules, onStartLesson }) {
+  if (!isUnlocked) {
+    return (
+      <div className="card opacity-50 mb-4">
+        <div className="flex items-center gap-3">
+          <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center text-2xl`}>🔒</div>
+          <div>
+            <h3 className="font-black text-gray-500">Niveau {lvl.id} — {lvl.title}</h3>
+            <p className="text-xs text-gray-400">{lvl.unlockCondition}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="card mb-4">
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center text-2xl`}>{lvl.icon}</div>
+        <div className="flex-1">
+          <h3 className="font-black text-gray-900">Niveau {lvl.id} — {lvl.title}</h3>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="flex-1 progress-bar">
+              <div className={`h-full ${colors.fill} rounded-full transition-all duration-500`} style={{ width: `${pct}%` }} />
+            </div>
+            <span className="text-xs text-gray-400 font-semibold">{done}/{total}</span>
+          </div>
+        </div>
+        {pct === 100 && <span className={`${colors.text} font-bold`}>✓</span>}
+      </div>
+
+      <div className="space-y-3">
+        {lvl.modules.map((mod, mIdx) => {
+          const modLessons = mod.lessons
+          const modDone = modLessons.every(l => completedLessons.includes(l.id))
+          const prevMod = lvl.modules[mIdx - 1]
+          const prevModDone = mIdx === 0 || (prevMod && prevMod.lessons.every(l => completedLessons.includes(l.id)))
+          const isLocked = !prevModDone && mIdx > 0
+
+          return (
+            <div key={mod.id} className={`rounded-xl border-2 overflow-hidden ${
+              isLocked ? 'border-gray-100 bg-gray-50 opacity-60' :
+              modDone ? `${colors.border} ${colors.light}` :
+              'border-gray-200 bg-white'
+            }`}>
+              <div className="px-4 py-3 flex items-center gap-3">
+                <span className="text-xl">{isLocked ? '🔒' : mod.icon}</span>
+                <div className="flex-1">
+                  <p className="font-bold text-gray-900 text-sm">{mod.title}</p>
+                  <p className="text-xs text-gray-400">{mod.lessons.length} leçon{mod.lessons.length > 1 ? 's' : ''}</p>
+                </div>
+                {modDone && <span className={`${colors.text} font-bold text-sm`}>✓</span>}
+              </div>
+
+              {!isLocked && (
+                <div className="px-3 pb-3 space-y-2">
+                  {modLessons.map((lesson, lIdx) => {
+                    const prevLessonDone = lIdx === 0 || completedLessons.includes(modLessons[lIdx - 1].id)
+                    const done = completedLessons.includes(lesson.id)
+                    const locked = !prevLessonDone && lIdx > 0
+
+                    return (
+                      <button
+                        key={lesson.id}
+                        disabled={locked}
+                        onClick={() => !locked && onStartLesson(mod.id, lesson.id)}
+                        className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 transition-all ${
+                          locked ? 'opacity-40 cursor-not-allowed bg-gray-100' :
+                          done ? `${colors.light} hover:opacity-80 cursor-pointer` :
+                          'bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer'
+                        }`}
+                      >
+                        <span className="text-lg">{locked ? '🔒' : done ? '✅' : lesson.icon}</span>
+                        <div className="flex-1">
+                          <p className={`text-sm font-semibold ${done ? colors.text : 'text-gray-700'}`}>
+                            {lesson.title}
+                          </p>
+                        </div>
+                        <span className="xp-badge">+{lesson.xpReward} XP</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

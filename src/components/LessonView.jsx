@@ -1,16 +1,5 @@
 import React, { useState } from 'react'
-import { LEVEL1 } from '../data/level1.js'
-
-function findLesson(moduleId, lessonId) {
-  for (const mod of LEVEL1.modules) {
-    if (mod.id === moduleId) {
-      for (const lesson of mod.lessons) {
-        if (lesson.id === lessonId) return { mod, lesson }
-      }
-    }
-  }
-  return null
-}
+import { findLesson, LEVEL_COLORS } from '../data/levels.js'
 
 export default function LessonView({ moduleId, lessonId, dispatch }) {
   const found = findLesson(moduleId, lessonId)
@@ -24,7 +13,8 @@ export default function LessonView({ moduleId, lessonId, dispatch }) {
 
   if (!found) return <div className="p-8 text-center text-gray-400">Leçon introuvable.</div>
 
-  const { mod, lesson } = found
+  const { lvl, mod, lesson } = found
+  const colors = LEVEL_COLORS[lvl.id]
   const exercises = lesson.exercises
   const currentEx = exercises[exIdx]
   const maxScore = exercises.reduce((s, e) => s + (e.xp || 10), 0)
@@ -83,21 +73,22 @@ export default function LessonView({ moduleId, lessonId, dispatch }) {
     const page = pages[theoryPage]
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">
-        <TopBar title={lesson.title} onBack={() => dispatch({ type: 'SET_VIEW', view: 'dashboard' })} progress={Math.round((theoryPage / (pages.length)) * 50)} label="Théorie" />
+        <TopBar title={lesson.title} onBack={() => dispatch({ type: 'SET_VIEW', view: 'dashboard' })} progress={Math.round((theoryPage / pages.length) * 50)} label="Théorie" fillClass={colors.fill} />
 
         <div className="flex-1 max-w-lg mx-auto w-full p-4">
-          {/* Module badge */}
+          {/* Level + module badge */}
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-xl">{mod.icon}</span>
+            <span className={`text-xs font-bold px-2 py-1 rounded-full ${colors.badge}`}>Niveau {lvl.id}</span>
+            <span className="text-lg">{mod.icon}</span>
             <span className="text-sm font-semibold text-gray-500">{mod.title}</span>
           </div>
 
           <h2 className="text-xl font-black text-gray-900 mb-5">{theory.title}</h2>
 
-          {/* Page indicator */}
+          {/* Page dots */}
           <div className="flex gap-1.5 mb-5">
             {pages.map((_, i) => (
-              <div key={i} className={`h-1.5 flex-1 rounded-full transition-all ${i <= theoryPage ? 'bg-brand-500' : 'bg-gray-200'}`} />
+              <div key={i} className={`h-1.5 flex-1 rounded-full transition-all ${i <= theoryPage ? colors.fill : 'bg-gray-200'}`} />
             ))}
           </div>
 
@@ -105,9 +96,9 @@ export default function LessonView({ moduleId, lessonId, dispatch }) {
             <h3 className="font-black text-gray-900 text-lg mb-3">{page.heading}</h3>
             <p className="text-gray-700 text-sm leading-relaxed mb-4 whitespace-pre-line">{page.body}</p>
             {page.example && (
-              <div className="bg-brand-50 border-l-4 border-brand-400 rounded-r-xl p-3">
-                <p className="text-xs font-bold text-brand-600 uppercase mb-1">Exemple concret</p>
-                <p className="text-sm text-brand-900 leading-relaxed whitespace-pre-line">{page.example}</p>
+              <div className={`${colors.light} border-l-4 ${colors.border} rounded-r-xl p-3`}>
+                <p className={`text-xs font-bold ${colors.text} uppercase mb-1`}>Exemple concret</p>
+                <p className={`text-sm leading-relaxed whitespace-pre-line ${colors.text}`}>{page.example}</p>
               </div>
             )}
           </div>
@@ -177,6 +168,7 @@ export default function LessonView({ moduleId, lessonId, dispatch }) {
         onBack={() => dispatch({ type: 'SET_VIEW', view: 'dashboard' })}
         progress={exProgress}
         label={`${exIdx + 1}/${exercises.length}`}
+        fillClass={colors.fill}
       />
 
       <div className="flex-1 max-w-lg mx-auto w-full p-4">
@@ -328,14 +320,14 @@ function ReorderExercise({ exercise, reorderItems, setReorderItems, showFeedback
   )
 }
 
-function TopBar({ title, onBack, progress, label }) {
+function TopBar({ title, onBack, progress, label, fillClass = 'bg-brand-500' }) {
   return (
     <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3 sticky top-0 z-10 shadow-sm">
       <button onClick={onBack} className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 flex-shrink-0">
         ✕
       </button>
       <div className="flex-1 progress-bar">
-        <div className="progress-fill" style={{ width: `${progress}%` }} />
+        <div className={`h-full ${fillClass} rounded-full transition-all duration-500`} style={{ width: `${progress}%` }} />
       </div>
       <span className="text-xs text-gray-400 font-semibold flex-shrink-0">{label}</span>
     </div>
