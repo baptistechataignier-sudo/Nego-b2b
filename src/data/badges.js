@@ -1,0 +1,15 @@
+export const BADGES = [
+  { id: 'first-lesson', icon: '🎓', label: 'Première Leçon', description: 'Terminez votre première leçon', condition: (p) => p.completedLessons.length >= 1 },
+  { id: 'batna-master', icon: '⚖️', label: 'Maître du BATNA', description: 'Terminez le module Fondamentaux', condition: (p) => p.completedModules.includes('l1-m1') },
+  { id: 'spin-doctor', icon: '🎯', label: 'SPIN Doctor', description: 'Terminez le module Découverte', condition: (p) => p.completedModules.includes('l1-m2') },
+  { id: 'value-pitcher', icon: '💎', label: 'Value Pitcher', description: 'Terminez le module Proposition de Valeur', condition: (p) => p.completedModules.includes('l1-m3') },
+  { id: 'objection-handler', icon: '🛡️', label: 'Objecteur Parfait', description: 'Terminez le module Objections', condition: (p) => p.completedModules.includes('l1-m4') },
+  { id: 'closer', icon: '🏁', label: 'The Closer', description: 'Terminez le module Closing', condition: (p) => p.completedModules.includes('l1-m5') },
+  { id: 'level1-complete', icon: '🌟', label: 'Junior Certifié', description: 'Terminez le Niveau 1 complet', condition: (p) => p.level >= 2 },
+  { id: 'first-sim', icon: '🤝', label: 'Négociateur Terrain', description: 'Terminez votre première simulation', condition: (p) => p.completedSimulations.length >= 1 },
+  { id: 'sim-expert', icon: '🏆', label: 'Expert Simulation', description: 'Obtenez le score maximum dans une simulation', condition: (p) => p.bestSimScore >= 170 },
+  { id: 'streak-3', icon: '🔥', label: 'En Feu !', description: '3 jours de streak consécutifs', condition: (p) => p.streak >= 3 },
+  { id: 'streak-7', icon: '⚡', label: 'Semaine Parfaite', description: '7 jours de streak consécutifs', condition: (p) => p.streak >= 7 },
+  { id: 'xp-500', icon: '💫', label: '500 XP', description: 'Atteignez 500 XP', condition: (p) => p.totalXP >= 500 },
+  { id: 'xp-1000', icon: '🚀', label: '1000 XP', description: 'Atteignez 1000 XP', condition: (p) => p.totalXP >= 1000 },
+]
