@@ -1,23 +1,20 @@
-import { useState } from 'react'
 import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress } from '../store/gameReducer'
 import { MODULES } from '../data/modules'
 import XPBar from './ui/XPBar'
 
-export default function Profile({ state, dispatch }) {
+export default function Profile({ state, dispatch, profile, onLogout }) {
   const { user } = state
-  const [editingName, setEditingName] = useState(false)
-  const [nameInput, setNameInput] = useState(user.name)
 
   const totalLessons = MODULES.flatMap(m => m.lessons).length
   const completedLessons = user.completedLessons.length
   const nextLevel = user.level + 1
   const xpForNext = XP_PER_LEVEL - getXPProgress(user.xp)
 
-  function saveName() {
-    if (nameInput.trim()) {
-      dispatch({ type: 'UPDATE_USERNAME', payload: nameInput.trim() })
+  function handleReset() {
+    if (window.confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression ?')) {
+      localStorage.removeItem(`negomaster_${profile.id}`)
+      window.location.reload()
     }
-    setEditingName(false)
   }
 
   return (
@@ -32,44 +29,28 @@ export default function Profile({ state, dispatch }) {
             ← Retour
           </button>
           <h1 className="font-display font-black text-lg text-gray-900">Mon Profil</h1>
+          <button
+            onClick={onLogout}
+            className="ml-auto text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-1.5 rounded-xl hover:bg-gray-100"
+          >
+            Changer de profil
+          </button>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-6">
         {/* Avatar / Name */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-brand-400 to-brand-700 rounded-2xl flex items-center justify-center text-white font-display font-black text-3xl">
+          <div className={`w-16 h-16 bg-gradient-to-br ${profile.color} rounded-2xl flex items-center justify-center text-white font-display font-black text-3xl`}>
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1">
-            {editingName ? (
-              <div className="flex gap-2">
-                <input
-                  autoFocus
-                  value={nameInput}
-                  onChange={e => setNameInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && saveName()}
-                  className="border-2 border-brand-400 rounded-xl px-3 py-1.5 text-sm font-bold flex-1 focus:outline-none"
-                  maxLength={30}
-                />
-                <button
-                  onClick={saveName}
-                  className="bg-brand-600 text-white text-sm font-bold px-3 rounded-xl"
-                >
-                  OK
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <h2 className="font-display font-black text-xl text-gray-900">{user.name}</h2>
-                <button
-                  onClick={() => setEditingName(true)}
-                  className="text-gray-400 hover:text-brand-600 text-sm"
-                >
-                  ✏️
-                </button>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <h2 className="font-display font-black text-xl text-gray-900">{user.name}</h2>
+              {profile.role === 'admin' && (
+                <span className="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">Admin</span>
+              )}
+            </div>
             <p className="text-sm text-gray-500">Négociateur B2B · Niveau {user.level}</p>
           </div>
         </div>
@@ -162,12 +143,7 @@ export default function Profile({ state, dispatch }) {
           <h3 className="font-bold text-gray-900 mb-2">Zone dangereuse</h3>
           <p className="text-sm text-gray-500 mb-3">Réinitialiser toute la progression. Cette action est irréversible.</p>
           <button
-            onClick={() => {
-              if (window.confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression ?')) {
-                localStorage.removeItem('negomaster_state')
-                window.location.reload()
-              }
-            }}
+            onClick={handleReset}
             className="bg-red-50 hover:bg-red-100 text-red-600 font-medium text-sm px-4 py-2 rounded-xl transition-colors border border-red-200"
           >
             Réinitialiser la progression

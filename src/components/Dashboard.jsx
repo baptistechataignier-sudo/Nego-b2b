@@ -1,7 +1,7 @@
 import { MODULES, SIMULATIONS } from '../data/modules'
 import XPBar from './ui/XPBar'
 
-export default function Dashboard({ state, dispatch }) {
+export default function Dashboard({ state, dispatch, profile, onLogout }) {
   const { user } = state
 
   const totalLessons = MODULES.flatMap(m => m.lessons).length
@@ -38,10 +38,19 @@ export default function Dashboard({ state, dispatch }) {
                   <span key={i} className={`text-sm ${i < user.hearts ? '' : 'opacity-20 grayscale'}`}>❤️</span>
                 ))}
               </div>
+              {/* Admin button (Baptiste only) */}
+              {profile?.role === 'admin' && (
+                <button
+                  onClick={() => dispatch({ type: 'NAVIGATE', payload: 'admin' })}
+                  className="bg-purple-100 hover:bg-purple-200 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full transition-colors"
+                >
+                  Admin
+                </button>
+              )}
               {/* Profile */}
               <button
                 onClick={() => dispatch({ type: 'NAVIGATE', payload: 'profile' })}
-                className="w-9 h-9 bg-brand-100 hover:bg-brand-200 rounded-full flex items-center justify-center transition-colors font-bold text-brand-700 text-sm"
+                className={`w-9 h-9 bg-gradient-to-br ${profile?.color || 'from-brand-400 to-brand-600'} rounded-full flex items-center justify-center transition-colors font-bold text-white text-sm`}
               >
                 {user.name.charAt(0).toUpperCase()}
               </button>
