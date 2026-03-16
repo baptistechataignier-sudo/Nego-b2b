@@ -1,5 +1,5 @@
 import { PROFILES, loadProfileState } from '../App'
-import { getLevelFromXP } from '../store/gameReducer'
+import { getLevelFromXP, getLevelTitle } from '../store/gameReducer'
 
 export default function LoginScreen({ onSelectProfile }) {
   return (
@@ -40,7 +40,7 @@ export default function LoginScreen({ onSelectProfile }) {
                 </div>
                 {saved ? (
                   <p className="text-sm text-gray-500">
-                    Niveau {level} · {xp.toLocaleString()} XP · {completedLessons} leçon{completedLessons > 1 ? 's' : ''}
+                    {getLevelTitle(level).icon} {getLevelTitle(level).title} · {xp.toLocaleString()} XP · {completedLessons} leçon{completedLessons > 1 ? 's' : ''}
                   </p>
                 ) : (
                   <p className="text-sm text-gray-400">Nouveau — commencer</p>

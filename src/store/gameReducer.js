@@ -2,11 +2,25 @@
 export const XP_PER_LEVEL = 200
 export const MAX_HEARTS = 5
 
+export const LEVEL_TITLES = [
+  { level: 1, title: 'Commercial Junior',   icon: '🌱', color: 'text-green-600'  },
+  { level: 2, title: 'Commercial Confirmé', icon: '📈', color: 'text-blue-600'   },
+  { level: 3, title: 'Key Account Manager', icon: '🎯', color: 'text-brand-600'  },
+  { level: 4, title: 'Négociateur Senior',  icon: '⭐', color: 'text-amber-600'  },
+  { level: 5, title: 'Expert Négociation',  icon: '🏆', color: 'text-purple-600' },
+]
+
+export function getLevelTitle(level) {
+  return LEVEL_TITLES.find(t => t.level === level) || LEVEL_TITLES[LEVEL_TITLES.length - 1]
+}
+
 export function getLevelFromXP(xp) {
-  return Math.floor(xp / XP_PER_LEVEL) + 1
+  return Math.min(Math.floor(xp / XP_PER_LEVEL) + 1, LEVEL_TITLES.length)
 }
 
 export function getXPProgress(xp) {
+  const level = getLevelFromXP(xp)
+  if (level >= LEVEL_TITLES.length) return XP_PER_LEVEL
   return xp % XP_PER_LEVEL
 }
 

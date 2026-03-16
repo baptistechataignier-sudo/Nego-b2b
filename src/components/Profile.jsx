@@ -1,4 +1,4 @@
-import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress } from '../store/gameReducer'
+import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress, LEVEL_TITLES, getLevelTitle } from '../store/gameReducer'
 import { MODULES } from '../data/modules'
 import XPBar from './ui/XPBar'
 
@@ -51,7 +51,7 @@ export default function Profile({ state, dispatch, profile, onLogout }) {
                 <span className="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">Admin</span>
               )}
             </div>
-            <p className="text-sm text-gray-500">Négociateur B2B · Niveau {user.level}</p>
+            <p className="text-sm text-gray-500">{getLevelTitle(user.level).icon} {getLevelTitle(user.level).title} · Niveau {user.level}</p>
           </div>
         </div>
 
@@ -66,7 +66,11 @@ export default function Profile({ state, dispatch, profile, onLogout }) {
             </div>
             <div className="bg-amber-50 rounded-xl p-3">
               <div className="font-display font-black text-2xl text-amber-600">{xpForNext}</div>
-              <div className="text-xs text-gray-500">XP pour niveau {nextLevel}</div>
+              <div className="text-xs text-gray-500">
+              {user.level < LEVEL_TITLES.length
+                ? `XP pour ${getLevelTitle(nextLevel).icon} ${getLevelTitle(nextLevel).title}`
+                : 'Niveau maximum atteint !'}
+            </div>
             </div>
           </div>
         </div>
@@ -108,6 +112,45 @@ export default function Profile({ state, dispatch, profile, onLogout }) {
               </div>
             )
           })}
+        </div>
+
+        {/* Niveaux */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3">
+          <h3 className="font-bold text-gray-900">Parcours de carrière</h3>
+          <div className="space-y-2">
+            {LEVEL_TITLES.map((lvl, i) => {
+              const unlocked = user.level >= lvl.level
+              const current = user.level === lvl.level
+              const xpRequired = (lvl.level - 1) * XP_PER_LEVEL
+              return (
+                <div
+                  key={lvl.level}
+                  className={`flex items-center gap-3 rounded-xl p-3 transition-all ${
+                    current
+                      ? 'bg-brand-50 border border-brand-200'
+                      : unlocked
+                      ? 'bg-gray-50 border border-gray-200'
+                      : 'bg-gray-50 border border-gray-100 opacity-50'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${unlocked ? 'bg-white shadow-sm' : 'bg-gray-100 grayscale'}`}>
+                    {lvl.icon}
+                  </div>
+                  <div className="flex-1">
+                    <div className={`font-semibold text-sm ${current ? 'text-brand-700' : unlocked ? 'text-gray-900' : 'text-gray-400'}`}>
+                      {lvl.title}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      {xpRequired === 0 ? 'Débloqué dès le départ' : `${xpRequired.toLocaleString()} XP requis`}
+                    </div>
+                  </div>
+                  {current && <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded-full">En cours</span>}
+                  {unlocked && !current && <span className="text-green-500 text-lg">✓</span>}
+                  {!unlocked && <span className="text-gray-300 text-lg">🔒</span>}
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         {/* Badges */}

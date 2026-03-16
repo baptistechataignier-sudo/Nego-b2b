@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PROFILES, loadProfileState } from '../App'
-import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress } from '../store/gameReducer'
+import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress, getLevelTitle } from '../store/gameReducer'
 import { MODULES } from '../data/modules'
 import XPBar from './ui/XPBar'
 
@@ -86,7 +86,7 @@ export default function AdminDashboard({ profile, onLogout, dispatch }) {
                   </div>
                   <div className="flex-1">
                     <div className="font-display font-black text-lg text-gray-900">{u.name}</div>
-                    <div className="text-sm text-gray-500">Niveau {level} · {xp.toLocaleString()} XP</div>
+                    <div className="text-sm text-gray-500">{getLevelTitle(level).icon} {getLevelTitle(level).title} · {xp.toLocaleString()} XP</div>
                   </div>
                   <span className="text-gray-300 group-hover:text-brand-400 text-lg transition-colors">→</span>
                 </div>
@@ -153,7 +153,7 @@ function UserDetail({ profile, onBack, onLogout }) {
           </div>
           <div>
             <h2 className="font-display font-black text-xl text-gray-900">{profile.name}</h2>
-            <p className="text-sm text-gray-500">Négociateur B2B · Niveau {level}</p>
+            <p className="text-sm text-gray-500">{getLevelTitle(level).icon} {getLevelTitle(level).title} · Niveau {level}</p>
           </div>
         </div>
 
@@ -168,7 +168,7 @@ function UserDetail({ profile, onBack, onLogout }) {
             </div>
             <div className="bg-amber-50 rounded-xl p-3">
               <div className="font-display font-black text-2xl text-amber-600">{xpForNext}</div>
-              <div className="text-xs text-gray-500">XP pour niveau {level + 1}</div>
+              <div className="text-xs text-gray-500">XP pour {getLevelTitle(level + 1).title}</div>
             </div>
           </div>
         </div>
