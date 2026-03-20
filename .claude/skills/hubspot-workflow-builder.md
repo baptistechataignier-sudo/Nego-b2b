@@ -232,9 +232,26 @@ Durée totale : 21 jours
 Nombre d'étapes : 5
 
 ━━━ ÉTAPE 1 — J+0 (Email automatique) ━━━
-Objet : [Personnalisé selon le secteur du prospect]
 Contenu : Accroche liée à un enjeu sectoriel concret.
 Pas de présentation catalogue. Une question ouverte.
+
+OBJET : {{company.name}} — [enjeu sectoriel en 5 mots]
+CORPS :
+Bonjour {{contact.firstname}},
+
+Les entreprises de [secteur/taille similaire] que je rencontre font souvent
+face à [enjeu concret — ex. "la multiplication des équipements de
+visioconférence hétérogènes entre sites" / "la gestion des renouvellements
+de parc périphériques sans visibilité sur les garanties"].
+
+Je travaille avec des responsables [fonction] sur ce type de sujet — pas
+pour vendre un catalogue, mais pour comprendre comment ils le gèrent
+aujourd'hui.
+
+Est-ce un sujet qui vous parle chez {{company.name}} ?
+
+Bien cordialement,
+[Signature]
 
 ━━━ ÉTAPE 2 — J+3 (Tâche : connexion LinkedIn) ━━━
 Note : "Ajouter {{contact.firstname}} sur LinkedIn avec message personnalisé."
@@ -242,14 +259,52 @@ Note : "Ajouter {{contact.firstname}} sur LinkedIn avec message personnalisé."
 ━━━ ÉTAPE 3 — J+7 (Email automatique) ━━━
 Contenu : Angle différent — cas client, chiffre clé, tendance sectorielle.
 
+OBJET : Ce que [entreprise similaire] a changé sur [sujet]
+CORPS :
+Bonjour {{contact.firstname}},
+
+Un exemple concret qui pourrait vous intéresser : [nom d'entreprise
+anonymisé ou secteur] avait [décrire le problème en 1 phrase].
+
+Après [décrire la solution mise en place — ex. "standardisation de leur
+parc audio-vidéo conférence sur une gamme unique"], ils ont [résultat
+mesurable — ex. "réduit de 40 % le temps de support IT lié aux salles de
+réunion" / "éliminé les incompatibilités lors des réunions inter-sites"].
+
+Ce type de gain est souvent sous-estimé au moment du choix du matériel.
+
+Si c'est un angle pertinent pour {{company.name}}, je peux vous partager
+plus de détails.
+
+Bien cordialement,
+[Signature]
+
 ━━━ ÉTAPE 4 — J+14 (Tâche : appel) ━━━
 Note : "Appeler le standard ou le mobile.
 Référencer l'email envoyé. Objectif : décrocher un RDV."
 
 ━━━ ÉTAPE 5 — J+21 (Email automatique — dernier) ━━━
 Contenu : Email de rupture élégant.
-"Je ne veux pas encombrer votre boîte. Si le timing n'est pas bon, je comprends."
 Laisser une porte ouverte.
+
+OBJET : {{contact.firstname}}, je clos le dossier de mon côté
+CORPS :
+Bonjour {{contact.firstname}},
+
+Je ne souhaite pas encombrer davantage votre boîte de réception — c'est
+donc mon dernier message.
+
+Si le timing n'est pas le bon, je le comprends tout à fait : les priorités
+évoluent, et ce qui n'est pas urgent aujourd'hui peut le devenir dans
+quelques mois.
+
+Si vous souhaitez reprendre la conversation à ce moment-là, n'hésitez pas
+à me recontacter directement — je serai disponible.
+
+Je vous souhaite une excellente continuation.
+
+Bien cordialement,
+[Signature]
 ```
 
 **Format de livraison pour chaque séquence :**
