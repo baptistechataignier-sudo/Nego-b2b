@@ -48,6 +48,24 @@ Contenu : Apport de valeur lié au besoin identifié.
 Pas de demande directe de réponse.
 Token à utiliser : {{contact.firstname}}, {{deal.dealname}}
 
+OBJET : {{contact.firstname}}, un point sur votre projet {{deal.dealname}}
+CORPS :
+Bonjour {{contact.firstname}},
+
+En préparant votre dossier, j'ai pensé à un point qui méritait d'être
+mentionné : [insérer ici un élément technique concret — ex. compatibilité
+avec votre système d'exploitation actuel, garantie constructeur incluse,
+délai de livraison standard].
+
+Ce type de détail est souvent décisif dans le choix final, et je préfère
+vous en informer maintenant plutôt qu'après signature.
+
+Si vous avez des questions sur ce point ou sur d'autres aspects du devis,
+je suis disponible pour en discuter.
+
+Bien cordialement,
+[Signature]
+
 ━━━ ÉTAPE 2 — J+5 (Tâche manuelle : appel) ━━━
 Type : Tâche appel
 Note : "Appeler {{contact.firstname}} — devis {{deal.dealname}} envoyé il y a 5 jours.
@@ -58,6 +76,27 @@ Priorité : Haute
 Objet : [Angle urgence douce — stock, tarif, deadline projet]
 Contenu : Élément de rareté ou temporalité.
 Inclure un CTA clair (lien vers le devis ou prise de RDV).
+
+OBJET : {{deal.dealname}} — disponibilité & tarifs : point de situation
+CORPS :
+Bonjour {{contact.firstname}},
+
+Je me permets de faire le point sur votre dossier {{deal.dealname}}.
+
+[Insérer ici un élément factuel adapté — ex. : "Le modèle principal de
+votre devis est en stock limité chez le distributeur" / "Le tarif
+constructeur sur cette gamme est susceptible d'évoluer en fin de mois" /
+"Pour une livraison avant [date projet], la commande devrait être confirmée
+avant le [date limite]."]
+
+Ce contexte peut avoir un impact sur votre planning — voici le devis
+pour référence : [lien devis] ou vous pouvez réserver un créneau directement :
+[lien agenda].
+
+Je reste disponible pour toute question.
+
+Bien cordialement,
+[Signature]
 
 ━━━ ÉTAPE 4 — J+10 (Tâche manuelle : LinkedIn) ━━━
 Type : Tâche personnalisée
@@ -70,6 +109,25 @@ Priorité : Moyenne
 Objet : [Clôture propre]
 Contenu : Fermer la boucle avec élégance.
 Laisser la porte ouverte. Proposer de recontacter dans 3 mois.
+
+OBJET : {{contact.firstname}}, je ferme le dossier de mon côté
+CORPS :
+Bonjour {{contact.firstname}},
+
+Je ne souhaite pas encombrer davantage votre boîte de réception — c'est
+donc mon dernier message concernant {{deal.dealname}}.
+
+Ce devis proposait [résumer en une phrase l'essentiel : ex. "un équipement
+complet de vos salles de réunion en solution audio-vidéo conférence"].
+
+Si votre calendrier évolue dans les prochains mois, n'hésitez pas à me
+recontacter directement : le dossier reste dans mes fichiers et je peux
+le réactiver rapidement.
+
+Je vous souhaite une excellente continuation.
+
+Bien cordialement,
+[Signature]
 
 ━━━ ACTION POST-SÉQUENCE ━━━
 Si aucune réponse après étape 5 :
@@ -87,9 +145,30 @@ Durée totale : 10 jours
 Nombre d'étapes : 4
 
 ━━━ ÉTAPE 1 — J+0 (Email automatique — même jour) ━━━
-Objet : Suite à notre échange — [sujet du RDV]
 Contenu : Récap des points discutés + prochaines étapes convenues.
 Joindre le document promis si applicable.
+
+OBJET : Suite à notre échange du [date] — récapitulatif et prochaines étapes
+CORPS :
+Bonjour {{contact.firstname}},
+
+Merci pour le temps que vous m'avez accordé ce [matin/après-midi]. Voici
+un récapitulatif de notre échange :
+
+1. Besoins identifiés : [insérer les besoins exprimés — ex. équipement de
+   3 salles de réunion, remplacement du parc périphériques]
+2. Solution discutée : [insérer la solution évoquée — produits, gammes,
+   configuration envisagée]
+3. Prochaines étapes : [insérer ce qui a été convenu — ex. envoi d'un devis
+   sous 48h, planification d'une démo, envoi d'une fiche technique]
+
+[Si document promis : "Vous trouverez ci-joint / en lien le document
+mentionné lors de notre échange : [lien ou mention PJ]."]
+
+N'hésitez pas à me revenir si des éléments sont à corriger ou compléter.
+
+Bien cordialement,
+[Signature]
 
 ━━━ ÉTAPE 2 — J+3 (Tâche manuelle : appel) ━━━
 Note : "Appeler pour valider que les infos envoyées sont suffisantes
@@ -98,9 +177,50 @@ et proposer la prochaine étape."
 ━━━ ÉTAPE 3 — J+5 (Email automatique) ━━━
 Contenu : Apport de valeur complémentaire (fiche produit, cas client similaire, étude de ROI).
 
+OBJET : {{company.name}} — [ressource complémentaire à notre échange]
+CORPS :
+Bonjour {{contact.firstname}},
+
+Vous mentionniez lors de notre échange [référencer un point spécifique
+évoqué — ex. "la difficulté de gérer des solutions hétérogènes en
+visioconférence" / "la contrainte de compatibilité avec votre parc actuel"].
+
+[Insérer la ressource pertinente — ex. :
+"J'ai pensé à ce retour d'expérience d'un client dans le secteur [X],
+confronté à la même problématique : [brève description du cas — 2 lignes].
+Résultat : [bénéfice concret chiffré si possible]."
+OU
+"Voici une fiche comparative entre les deux options que nous avons évoquées,
+qui devrait faciliter votre arbitrage : [lien ou PJ]."]
+
+Si ce point vous semble pertinent, je peux approfondir lors d'un prochain
+échange.
+
+Bien cordialement,
+[Signature]
+
 ━━━ ÉTAPE 4 — J+10 (Email automatique) ━━━
 Contenu : Proposition directe de prochaine étape (démo, devis, essai)
 avec lien de prise de RDV.
+
+OBJET : {{contact.firstname}}, quelle est la prochaine étape pour {{company.name}} ?
+CORPS :
+Bonjour {{contact.firstname}},
+
+Pour faire le point : nous avons identifié ensemble [besoin X] et je vous
+ai transmis [document Y / la ressource sur [sujet]].
+
+Pour avancer, deux options s'offrent à vous :
+
+- Option A : je planifie une démo avec votre équipe pour valider la
+  solution en conditions réelles → [lien agenda]
+- Option B : je prépare un devis définitif sur la base de notre échange
+  → répondez simplement à cet email avec vos préférences de configuration
+
+Quelle option correspond le mieux à votre calendrier ?
+
+Bien cordialement,
+[Signature]
 ```
 
 #### SÉQUENCE C — Prospection à froid
