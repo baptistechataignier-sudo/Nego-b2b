@@ -1,0 +1,10 @@
+{
+  "name": "pitch-agent",
+  "description": "Named agent that builds investor pitch decks and fundraising narratives. Synthesizes financial data, market positioning, and growth story into structured investor presentations.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "pitch", "fundraising", "investor-relations", "presentations"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "financial-analysis",
+  "description": "Core skill bundle for financial services work. Provides financial modeling techniques and data connector integrations for ERPs, data warehouses, and market data providers. Install this plugin before adding vertical bundles.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "financial-modeling", "data-connectors", "core"]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "claude-for-financial-services",
+  "description": "A curated marketplace of Claude Code plugins for financial services — covering investment banking, equity research, general ledger reconciliation, market research, and pitch deck generation. Install individual agent plugins or full vertical bundles.",
+  "owner": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "plugins": [
+    {
+      "name": "pitch-agent",
+      "description": "Named agent that builds investor pitch decks and narratives. Synthesizes financial data, market positioning, and growth story into structured presentations.",
+      "version": "1.0.0",
+      "source": "./plugins/agent-plugins/pitch-agent"
+    },
+    {
+      "name": "gl-reconciler",
+      "description": "Named agent that reconciles general ledger entries against source systems (ERP, bank statements, sub-ledgers). Identifies discrepancies and generates reconciliation reports.",
+      "version": "1.0.0",
+      "source": "./plugins/agent-plugins/gl-reconciler"
+    },
+    {
+      "name": "market-researcher",
+      "description": "Named agent that performs structured market research: TAM/SAM/SOM sizing, competitive landscape, industry dynamics. Produces structured research reports.",
+      "version": "1.0.0",
+      "source": "./plugins/agent-plugins/market-researcher"
+    },
+    {
+      "name": "financial-analysis",
+      "description": "Core skill bundle with financial modeling techniques and data connector integrations. Install this plugin first before adding vertical bundles.",
+      "version": "1.0.0",
+      "source": "./plugins/vertical-plugins/financial-analysis"
+    },
+    {
+      "name": "investment-banking",
+      "description": "Vertical bundle for investment banking workflows. Includes deal structuring, LBO modeling skills, and the pitch-deck command. Requires financial-analysis plugin.",
+      "version": "1.0.0",
+      "source": "./plugins/vertical-plugins/investment-banking"
+    },
+    {
+      "name": "equity-research",
+      "description": "Vertical bundle for equity research workflows. Includes fundamental analysis, valuation skills, and the initiate-coverage command. Requires financial-analysis plugin.",
+      "version": "1.0.0",
+      "source": "./plugins/vertical-plugins/equity-research"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "market-researcher",
+  "description": "Named agent that performs structured market research including TAM/SAM/SOM sizing, competitive landscape analysis, and industry dynamics. Produces structured research reports for investment decisions and strategic planning.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "market-research", "competitive-analysis", "tam", "industry-analysis"]
+}

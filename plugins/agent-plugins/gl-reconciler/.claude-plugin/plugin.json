@@ -1,0 +1,10 @@
+{
+  "name": "gl-reconciler",
+  "description": "Named agent that reconciles general ledger entries against source systems including ERPs, bank statements, and sub-ledgers. Identifies discrepancies and generates audit-ready reconciliation reports.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "accounting", "reconciliation", "gl", "erp", "audit"]
+}
