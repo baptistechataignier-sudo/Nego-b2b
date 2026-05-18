@@ -1,0 +1,10 @@
+{
+  "name": "investment-banking",
+  "description": "Vertical skill bundle for investment banking workflows. Provides deal structuring, LBO modeling skills, and the pitch-deck command for generating investor presentations. Requires the financial-analysis plugin.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "investment-banking", "lbo", "m&a", "deal-structuring", "pitch-deck"]
+}

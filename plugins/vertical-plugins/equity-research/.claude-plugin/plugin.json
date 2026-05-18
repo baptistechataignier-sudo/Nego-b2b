@@ -1,0 +1,10 @@
+{
+  "name": "equity-research",
+  "description": "Vertical skill bundle for equity research workflows. Provides fundamental analysis, valuation skills, and the initiate-coverage command for publishing initiation reports. Requires the financial-analysis plugin.",
+  "version": "1.0.0",
+  "author": { "name": "Anthropic", "email": "plugins@anthropic.com" },
+  "homepage": "https://github.com/anthropics/claude-for-financial-services",
+  "repository": "https://github.com/anthropics/claude-for-financial-services",
+  "license": "MIT",
+  "keywords": ["finance", "fsi", "equity-research", "fundamental-analysis", "valuation", "initiate-coverage"]
+}
