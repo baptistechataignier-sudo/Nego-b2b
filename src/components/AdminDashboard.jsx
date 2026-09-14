@@ -1,27 +1,58 @@
-import { useState } from 'react'
-import { PROFILES, loadProfileState } from '../App'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress } from '../store/gameReducer'
 import { MODULES } from '../data/modules'
 import XPBar from './ui/XPBar'
 
+const AVATAR_COLORS = [
+  'from-brand-400 to-brand-600',
+  'from-blue-400 to-indigo-600',
+  'from-pink-400 to-rose-600',
+  'from-green-400 to-emerald-600',
+]
+
+function getColor(str) {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash)
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length]
+}
+
 export default function AdminDashboard({ profile, onLogout, dispatch }) {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selectedUser, setSelectedUser] = useState(null)
 
-  const users = PROFILES.filter(p => p.role === 'user')
+  useEffect(() => { fetchUsers() }, [])
+
+  async function fetchUsers() {
+    setLoading(true)
+
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('is_admin', false)
+
+    const { data: progressRows } = await supabase
+      .from('user_progress')
+      .select('user_id, state')
+
+    const progressMap = {}
+    progressRows?.forEach(r => { progressMap[r.user_id] = r.state })
+
+    setUsers((profiles || []).map(p => ({
+      ...p,
+      color: getColor(p.email),
+      savedUser: progressMap[p.id]?.user ?? null,
+    })))
+    setLoading(false)
+  }
 
   if (selectedUser) {
-    return (
-      <UserDetail
-        profile={selectedUser}
-        onBack={() => setSelectedUser(null)}
-        onLogout={onLogout}
-      />
-    )
+    return <UserDetail user={selectedUser} onBack={() => setSelectedUser(null)} onLogout={onLogout} />
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-20">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -40,37 +71,48 @@ export default function AdminDashboard({ profile, onLogout, dispatch }) {
               onClick={onLogout}
               className="text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-1.5 rounded-xl hover:bg-gray-100"
             >
-              Changer de profil
+              Déconnexion
             </button>
           </div>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-        {/* Titre */}
         <div className="bg-gradient-to-br from-purple-50 to-violet-100 border border-purple-200 rounded-2xl p-5">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-violet-600 rounded-xl flex items-center justify-center text-white font-display font-black text-xl">
-              B
+              {profile.name.charAt(0)}
             </div>
             <div>
               <h2 className="font-display font-black text-xl text-gray-900">Tableau de bord Admin</h2>
-              <p className="text-sm text-purple-600">Vue d'ensemble de la progression des apprenants</p>
+              <p className="text-sm text-purple-600">Progression de l'équipe en temps réel</p>
             </div>
           </div>
         </div>
 
-        {/* User cards */}
         <div className="space-y-4">
-          <h3 className="font-bold text-gray-700 text-sm uppercase tracking-wide">Apprenants</h3>
-          {users.map(u => {
-            const saved = loadProfileState(u.id)
-            const xp = saved?.user?.xp ?? 0
+          <h3 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
+            Apprenants {!loading && `(${users.length})`}
+          </h3>
+
+          {loading && <p className="text-gray-400 text-sm text-center py-8">Chargement...</p>}
+
+          {!loading && users.length === 0 && (
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 text-center text-gray-400">
+              <div className="text-3xl mb-3">👥</div>
+              <p className="font-medium">Aucun apprenant connecté pour l'instant.</p>
+              <p className="text-sm mt-1">Partagez l'URL de l'app avec votre équipe.</p>
+            </div>
+          )}
+
+          {!loading && users.map(u => {
+            const user = u.savedUser
+            const xp = user?.xp ?? 0
             const level = getLevelFromXP(xp)
-            const completedLessons = saved?.user?.completedLessons ?? []
-            const earnedBadges = saved?.user?.earnedBadges ?? []
-            const streak = saved?.user?.streak ?? 0
-            const hearts = saved?.user?.hearts ?? 5
+            const completedLessons = user?.completedLessons ?? []
+            const earnedBadges = user?.earnedBadges ?? []
+            const streak = user?.streak ?? 0
+            const hearts = user?.hearts ?? 5
             const totalLessons = MODULES.flatMap(m => m.lessons).length
             const pct = totalLessons > 0 ? Math.round((completedLessons.length / totalLessons) * 100) : 0
 
@@ -91,7 +133,6 @@ export default function AdminDashboard({ profile, onLogout, dispatch }) {
                   <span className="text-gray-300 group-hover:text-brand-400 text-lg transition-colors">→</span>
                 </div>
 
-                {/* Progress bar */}
                 <div className="mb-3">
                   <div className="flex justify-between text-xs text-gray-400 mb-1">
                     <span>Progression globale</span>
@@ -105,12 +146,11 @@ export default function AdminDashboard({ profile, onLogout, dispatch }) {
                   </div>
                 </div>
 
-                {/* Mini stats */}
                 <div className="flex gap-3 text-xs">
                   <span className="bg-orange-50 text-orange-600 px-2 py-1 rounded-lg font-semibold">🔥 {streak}j</span>
-                  <span className="bg-amber-50 text-amber-600 px-2 py-1 rounded-lg font-semibold">🏆 {earnedBadges.length} badge{earnedBadges.length > 1 ? 's' : ''}</span>
+                  <span className="bg-amber-50 text-amber-600 px-2 py-1 rounded-lg font-semibold">🏆 {earnedBadges.length} badge{earnedBadges.length !== 1 ? 's' : ''}</span>
                   <span className="bg-red-50 text-red-500 px-2 py-1 rounded-lg font-semibold">❤️ {hearts}/5</span>
-                  {saved ? (
+                  {user ? (
                     <span className="bg-green-50 text-green-600 px-2 py-1 rounded-lg font-semibold">✓ Actif</span>
                   ) : (
                     <span className="bg-gray-50 text-gray-400 px-2 py-1 rounded-lg font-semibold">Pas commencé</span>
@@ -125,10 +165,10 @@ export default function AdminDashboard({ profile, onLogout, dispatch }) {
   )
 }
 
-function UserDetail({ profile, onBack, onLogout }) {
-  const saved = loadProfileState(profile.id)
-  const user = saved?.user ?? { xp: 0, level: 1, streak: 0, completedLessons: [], earnedBadges: [], hearts: 5, completedModules: [] }
-  const xp = user.xp ?? 0
+function UserDetail({ user, onBack }) {
+  const saved = user.savedUser
+  const userState = saved ?? { xp: 0, level: 1, streak: 0, completedLessons: [], earnedBadges: [], hearts: 5, completedModules: [] }
+  const xp = userState.xp ?? 0
   const level = getLevelFromXP(xp)
   const totalLessons = MODULES.flatMap(m => m.lessons).length
   const xpForNext = XP_PER_LEVEL - getXPProgress(xp)
@@ -140,24 +180,22 @@ function UserDetail({ profile, onBack, onLogout }) {
           <button onClick={onBack} className="text-gray-400 hover:text-gray-600 transition-colors">
             ← Retour
           </button>
-          <h1 className="font-display font-black text-lg text-gray-900">Profil de {profile.name}</h1>
+          <h1 className="font-display font-black text-lg text-gray-900">Profil de {user.name}</h1>
           <span className="ml-auto text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-lg">Lecture seule</span>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-        {/* Avatar */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 flex items-center gap-4">
-          <div className={`w-16 h-16 bg-gradient-to-br ${profile.color} rounded-2xl flex items-center justify-center text-white font-display font-black text-3xl`}>
-            {profile.name.charAt(0)}
+          <div className={`w-16 h-16 bg-gradient-to-br ${user.color} rounded-2xl flex items-center justify-center text-white font-display font-black text-3xl`}>
+            {user.name.charAt(0)}
           </div>
           <div>
-            <h2 className="font-display font-black text-xl text-gray-900">{profile.name}</h2>
+            <h2 className="font-display font-black text-xl text-gray-900">{user.name}</h2>
             <p className="text-sm text-gray-500">Négociateur B2B · Niveau {level}</p>
           </div>
         </div>
 
-        {/* XP */}
         <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-4">
           <h3 className="font-bold text-gray-900">Progression</h3>
           <XPBar xp={xp} level={level} />
@@ -173,54 +211,49 @@ function UserDetail({ profile, onBack, onLogout }) {
           </div>
         </div>
 
-        {/* Stats */}
         <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3">
           <h3 className="font-bold text-gray-900">Statistiques</h3>
           <div className="grid grid-cols-2 gap-3">
-            <StatItem icon="🔥" label="Série" value={`${user.streak ?? 0} jour${user.streak > 1 ? 's' : ''}`} />
-            <StatItem icon="🎓" label="Leçons" value={`${user.completedLessons?.length ?? 0}/${totalLessons}`} />
-            <StatItem icon="🏆" label="Badges" value={`${user.earnedBadges?.length ?? 0}/${BADGES.length}`} />
-            <StatItem icon="❤️" label="Cœurs" value={`${user.hearts ?? 5}/5`} />
+            <StatItem icon="🔥" label="Série" value={`${userState.streak ?? 0} jour${(userState.streak ?? 0) > 1 ? 's' : ''}`} />
+            <StatItem icon="🎓" label="Leçons" value={`${userState.completedLessons?.length ?? 0}/${totalLessons}`} />
+            <StatItem icon="🏆" label="Badges" value={`${userState.earnedBadges?.length ?? 0}/${BADGES.length}`} />
+            <StatItem icon="❤️" label="Cœurs" value={`${userState.hearts ?? 5}/5`} />
           </div>
         </div>
 
-        {/* Modules */}
         <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3">
           <h3 className="font-bold text-gray-900">Modules</h3>
           {MODULES.map(module => {
-            const done = module.lessons.filter(l => (user.completedLessons ?? []).includes(l.id)).length
+            const done = module.lessons.filter(l => (userState.completedLessons ?? []).includes(l.id)).length
             const total = module.lessons.length
             const pct = total > 0 ? Math.round((done / total) * 100) : 0
             return (
-              <div key={module.id} className={`rounded-xl p-3 ${module.locked ? 'opacity-50' : ''}`}>
+              <div key={module.id} className="rounded-xl p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <span>{module.icon}</span>
                   <span className="text-sm font-semibold text-gray-700">{module.title}</span>
-                  <span className="ml-auto text-xs text-gray-400">{module.locked ? '🔒' : `${done}/${total}`}</span>
+                  <span className="ml-auto text-xs text-gray-400">{done}/{total}</span>
                 </div>
-                {!module.locked && (
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full bg-gradient-to-r ${module.color} rounded-full transition-all`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                )}
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full bg-gradient-to-r ${module.color} rounded-full transition-all`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
               </div>
             )
           })}
         </div>
 
-        {/* Badges */}
         <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3">
           <h3 className="font-bold text-gray-900">Badges</h3>
           <div className="grid grid-cols-3 gap-3">
             {BADGES.map(badge => {
-              const earned = (user.earnedBadges ?? []).includes(badge.id)
+              const earned = (userState.earnedBadges ?? []).includes(badge.id)
               return (
                 <div
                   key={badge.id}
-                  className={`rounded-xl p-3 text-center transition-all ${
+                  className={`rounded-xl p-3 text-center ${
                     earned
                       ? 'bg-gradient-to-br from-amber-50 to-yellow-100 border border-amber-200'
                       : 'bg-gray-50 border border-gray-200 opacity-40 grayscale'

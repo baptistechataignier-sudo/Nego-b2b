@@ -2,20 +2,13 @@ import { BADGES, getLevelFromXP, XP_PER_LEVEL, getXPProgress } from '../store/ga
 import { MODULES } from '../data/modules'
 import XPBar from './ui/XPBar'
 
-export default function Profile({ state, dispatch, profile, onLogout }) {
+export default function Profile({ state, dispatch, profile, onLogout, onReset }) {
   const { user } = state
 
   const totalLessons = MODULES.flatMap(m => m.lessons).length
   const completedLessons = user.completedLessons.length
   const nextLevel = user.level + 1
   const xpForNext = XP_PER_LEVEL - getXPProgress(user.xp)
-
-  function handleReset() {
-    if (window.confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression ?')) {
-      localStorage.removeItem(`negomaster_${profile.id}`)
-      window.location.reload()
-    }
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -33,7 +26,7 @@ export default function Profile({ state, dispatch, profile, onLogout }) {
             onClick={onLogout}
             className="ml-auto text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-1.5 rounded-xl hover:bg-gray-100"
           >
-            Changer de profil
+            Déconnexion
           </button>
         </div>
       </header>
@@ -143,7 +136,7 @@ export default function Profile({ state, dispatch, profile, onLogout }) {
           <h3 className="font-bold text-gray-900 mb-2">Zone dangereuse</h3>
           <p className="text-sm text-gray-500 mb-3">Réinitialiser toute la progression. Cette action est irréversible.</p>
           <button
-            onClick={handleReset}
+            onClick={onReset}
             className="bg-red-50 hover:bg-red-100 text-red-600 font-medium text-sm px-4 py-2 rounded-xl transition-colors border border-red-200"
           >
             Réinitialiser la progression
