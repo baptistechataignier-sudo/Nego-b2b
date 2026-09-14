@@ -202,7 +202,7 @@ function ModuleCard({ module, completedLessons, onStartLesson }) {
         {module.lessons.map((lesson, idx) => {
           const done = completedLessons.includes(lesson.id)
           const isNext = !done && lesson.id === nextLesson?.id
-          const locked = !done && idx > 0 && !completedLessons.includes(module.lessons[idx - 1]?.id)
+          const locked = false
 
           return (
             <LessonRow
